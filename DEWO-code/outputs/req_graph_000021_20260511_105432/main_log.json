@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-05-11T02:54:32.798107+00:00",
+  "Executed": false,
+  "task_success": false,
+  "e2e_success": false,
+  "checks": {
+    "MC1_Executed": false,
+    "MC2_NonEmpty": false,
+    "MC3_MachineDecodable": false,
+    "MC4_HardFormat": true
+  },
+  "run_id": "dewo_test_1_1ba75fd9",
+  "sample_id": "req_graph_000021",
+  "crash": {
+    "exception_type": "BadRequestError",
+    "message": "litellm.BadRequestError: LLM Provider NOT provided. Pass in the LLM provider you are trying to call. You passed model=deepseek-ai/deepseek-v4-flash\n Pass model as E.g. For 'Huggingface' inference endpoints pass in `completion(model='huggingface/starcoder',..)` Learn more: https://docs.litellm.ai/docs/providers",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\Project\\YTY\\DEWO\\DEWO-code\\run.py\", line 223, in _run_dewo_graph_streaming\n    for chunk in runnable.stream(state_in, stream_mode=\"values\"):\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langgraph\\pregel\\main.py\", line 2736, in stream\n    for _ in runner.tick(\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langgraph\\pregel\\_runner.py\", line 167, in tick\n    run_with_retry(\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langgraph\\pregel\\_retry.py\", line 126, in run_with_retry\n    return task.proc.invoke(task.input, config)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langgraph\\_internal\\_runnable.py\", line 656, in invoke\n    input = context.run(step.invoke, input, config, **kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langgraph\\_internal\\_runnable.py\", line 400, in invoke\n    ret = self.func(*args, **kwargs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Project\\YTY\\DEWO\\DEWO-code\\app\\agent\\parser.py\", line 411, in parse_and_contract\n    raw_json = _call_controller_llm(user_prompt, state)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Project\\YTY\\DEWO\\DEWO-code\\app\\agent\\parser.py\", line 325, in _call_controller_llm\n    msg = invoke_litellm_with_retries(\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Project\\YTY\\DEWO\\DEWO-code\\app\\utils\\controller_retry.py\", line 188, in invoke_litellm_with_retries\n    return call_with_network_retries(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Project\\YTY\\DEWO\\DEWO-code\\app\\utils\\controller_retry.py\", line 166, in call_with_network_retries\n    return fn()\n           ^^^^\n  File \"D:\\Project\\YTY\\DEWO\\DEWO-code\\app\\utils\\controller_retry.py\", line 189, in <lambda>\n    lambda: llm.invoke(messages),\n            ^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langchain_core\\language_models\\chat_models.py\", line 454, in invoke\n    self.generate_prompt(\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langchain_core\\language_models\\chat_models.py\", line 1185, in generate_prompt\n    return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langchain_core\\language_models\\chat_models.py\", line 995, in generate\n    self._generate_with_cache(\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langchain_core\\language_models\\chat_models.py\", line 1297, in _generate_with_cache\n    result = self._generate(\n             ^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langchain_litellm\\chat_models\\litellm.py\", line 588, in _generate\n    response = self.completion_with_retry(\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langchain_litellm\\chat_models\\litellm.py\", line 509, in completion_with_retry\n    return _completion_with_retry(**kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\tenacity\\__init__.py\", line 331, in wrapped_f\n    return copy(f, *args, **kw)\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\tenacity\\__init__.py\", line 470, in __call__\n    do = self.iter(retry_state=retry_state)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\tenacity\\__init__.py\", line 371, in iter\n    result = action(retry_state)\n             ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\tenacity\\__init__.py\", line 393, in <lambda>\n    self._add_action_func(lambda rs: rs.outcome.result())\n                                     ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\concurrent\\futures\\_base.py\", line 449, in result\n    return self.__get_result()\n           ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\concurrent\\futures\\_base.py\", line 401, in __get_result\n    raise self._exception\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\tenacity\\__init__.py\", line 473, in __call__\n    result = fn(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langchain_litellm\\chat_models\\litellm.py\", line 507, in _completion_with_retry\n    return self.client.completion(**kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\litellm\\utils.py\", line 1749, in wrapper\n    raise e\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\litellm\\utils.py\", line 1570, in wrapper\n    result = original_function(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\litellm\\main.py\", line 4320, in completion\n    raise exception_type(\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\litellm\\main.py\", line 1317, in completion\n    model, custom_llm_provider, dynamic_api_key, api_base = get_llm_provider(\n                                                            ^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\litellm\\litellm_core_utils\\get_llm_provider_logic.py\", line 476, in get_llm_provider\n    raise e\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\litellm\\litellm_core_utils\\get_llm_provider_logic.py\", line 457, in get_llm_provider\n    raise litellm.exceptions.BadRequestError(  # type: ignore\nlitellm.exceptions.BadRequestError: litellm.BadRequestError: LLM Provider NOT provided. Pass in the LLM provider you are trying to call. You passed model=deepseek-ai/deepseek-v4-flash\n Pass model as E.g. For 'Huggingface' inference endpoints pass in `completion(model='huggingface/starcoder',..)` Learn more: https://docs.litellm.ai/docs/providers\nDuring task with name 'parse_and_contract' and id '3502cdd6-8450-1a6f-742d-8b24635c778f'\n",
+    "inferred_module": "module1",
+    "inferred_phase": "parse_and_contract",
+    "hint_file": "parser.py"
+  },
+  "usage": null,
+  "final_dag_result": null,
+  "final_result": null,
+  "graph_final_message": null,
+  "graph_eval_summary": null,
+  "datasets_meta": {
+    "split": "test",
+    "difficulty": "complex",
+    "task": [
+      "image_text_to_text",
+      "object_detection",
+      "summarization"
+    ],
+    "expected_output_type": "text"
+  }
+}

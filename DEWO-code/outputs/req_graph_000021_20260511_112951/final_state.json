@@ -1,0 +1,409 @@
+{
+  "run_id": "dewo_test_1_3728a26c",
+  "sample_id": "req_graph_000021",
+  "query": "I have an image named 'graph_021_image_1.png'. First, describe the overall scene in the image. At the same time, detect and list the main objects present in the image with their labels. Finally, combine both results into a structured English report with two sections: 'Scene Description' and 'Detected Objects'.",
+  "inputs": {
+    "image": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png"
+  },
+  "inputs_meta": {
+    "image": {
+      "path": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png",
+      "exists": true,
+      "file_kind": "image",
+      "suffix": ".png",
+      "mime": "image/png",
+      "size_bytes": 5552349,
+      "mtime_utc": "2026-04-13T09:06:23.332945+00:00",
+      "meta": {
+        "format": "PNG",
+        "width": 2730,
+        "height": 1535,
+        "mode": "RGB"
+      }
+    }
+  },
+  "datasets_meta": {
+    "split": "test",
+    "difficulty": "complex",
+    "task": [
+      "image_text_to_text",
+      "object_detection",
+      "summarization"
+    ],
+    "expected_output_type": "text"
+  },
+  "infer_assets_dir": "D:\\Project\\YTY\\DEWO\\DEWO-code\\outputs\\req_graph_000021_20260511_112951",
+  "dag_plan": {
+    "graph_type": "DAG",
+    "nodes": [
+      {
+        "node_id": "node_1",
+        "task": [
+          "image_to_text"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图片 'graph_021_image_1.png' 进行整体场景描述，输出英文自然语言描述文本，供下游合并节点使用。"
+      },
+      {
+        "node_id": "node_2",
+        "task": [
+          "object_detection"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图片 'graph_021_image_1.png' 进行目标检测，输出包含每个检测到的物体标签（label）和位置信息（可选）的结构化列表，供下游合并节点使用。"
+      },
+      {
+        "node_id": "node_3",
+        "task": [
+          "text_generation"
+        ],
+        "language": "en",
+        "requirement_spec": "将 node_1 的场景描述文本和 node_2 的检测结果列表合并为一个结构化的英文报告，包含两个部分：'Scene Description' 和 'Detected Objects'。输出纯文本，不包含额外格式。"
+      }
+    ],
+    "edges": [
+      {
+        "source": "node_1",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      },
+      {
+        "source": "node_2",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      }
+    ],
+    "task_specs": {
+      "image_to_text": {
+        "task_type": "image_to_text",
+        "required_args": [],
+        "inspect_error": "ValueError: Unsupported task_type: image_to_text"
+      },
+      "object_detection": {
+        "task_type": "object_detection",
+        "pipeline_tag": "object-detection",
+        "mapped_method": "object_detection",
+        "required_args": [
+          "image"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "image",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.Union[bytes, typing.BinaryIO, str, pathlib.Path, ForwardRef('Image'), bytearray, memoryview]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "threshold",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          }
+        ]
+      },
+      "text_generation": {
+        "task_type": "text_generation",
+        "pipeline_tag": "text-generation",
+        "mapped_method": "chat_completion",
+        "required_args": [
+          "messages"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "messages",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.List[typing.Union[typing.Dict, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputMessage]]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "stream",
+            "kind": "KEYWORD_ONLY",
+            "default": "False",
+            "annotation": "<class 'bool'>",
+            "required": false
+          },
+          {
+            "name": "frequency_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "logit_bias",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[float]]",
+            "required": false
+          },
+          {
+            "name": "logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[bool]",
+            "required": false
+          },
+          {
+            "name": "max_tokens",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "n",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "presence_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "response_format",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatText, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONSchema, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONObject, NoneType]",
+            "required": false
+          },
+          {
+            "name": "seed",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "stop",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[str]]",
+            "required": false
+          },
+          {
+            "name": "stream_options",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputStreamOptions]",
+            "required": false
+          },
+          {
+            "name": "temperature",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "tool_choice",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputToolChoiceClass, ForwardRef('ChatCompletionInputToolChoiceEnum'), NoneType]",
+            "required": false,
+            "allowed_values": [
+              "auto",
+              "none",
+              "required"
+            ]
+          },
+          {
+            "name": "tool_prompt",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "tools",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputTool]]",
+            "required": false
+          },
+          {
+            "name": "top_logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "top_p",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "extra_body",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.Dict]",
+            "required": false
+          }
+        ]
+      }
+    }
+  },
+  "usage": {
+    "schema_version": 4,
+    "updated_at": "2026-05-11T03:30:35.691786+00:00",
+    "totals": {
+      "wall_sec": 0.0,
+      "llm": {
+        "calls": 3,
+        "prompt_tokens": 7407,
+        "completion_tokens": 2208,
+        "total_tokens": 9615
+      }
+    },
+    "pass_counters": {
+      "module1": 1,
+      "module2": 1,
+      "module3": 0
+    },
+    "modules": {
+      "module1": {
+        "wall_sec": 6.8921,
+        "llm": {
+          "calls": 1,
+          "prompt_tokens": 1493,
+          "completion_tokens": 330,
+          "total_tokens": 1823
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 6.8921,
+            "llm": {
+              "calls": 1,
+              "prompt_tokens": 1493,
+              "completion_tokens": 330,
+              "total_tokens": 1823
+            }
+          }
+        ]
+      },
+      "module2": {
+        "wall_sec": 37.3416,
+        "llm": {
+          "calls": 2,
+          "prompt_tokens": 5914,
+          "completion_tokens": 1878,
+          "total_tokens": 7792
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 37.3416,
+            "llm": {
+              "calls": 2,
+              "prompt_tokens": 5914,
+              "completion_tokens": 1878,
+              "total_tokens": 7792
+            }
+          }
+        ]
+      },
+      "module3": {
+        "wall_sec": 0.0,
+        "llm": {
+          "calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        },
+        "passes": []
+      },
+      "module5": {
+        "wall_sec": 0.0,
+        "llm": {
+          "calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        },
+        "rounds": []
+      }
+    },
+    "llm_events": [
+      {
+        "seq": 0,
+        "ts": "2026-05-11T03:29:58.347660+00:00",
+        "module": "module1",
+        "purpose": "dag_plan",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 6.8905,
+        "prompt_tokens": 1493,
+        "completion_tokens": 330,
+        "total_tokens": 1823,
+        "node_id": null,
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 1,
+        "ts": "2026-05-11T03:30:03.516269+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 2.299,
+        "prompt_tokens": 804,
+        "completion_tokens": 114,
+        "total_tokens": 918,
+        "node_id": "node_2",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 2,
+        "ts": "2026-05-11T03:30:35.691786+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 31.4361,
+        "prompt_tokens": 5110,
+        "completion_tokens": 1764,
+        "total_tokens": 6874,
+        "node_id": "node_3",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      }
+    ],
+    "_next_seq": 3,
+    "_e2e_perf_t0": 2377210.179359
+  },
+  "candidate_frontier": {}
+}

@@ -1,0 +1,609 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-04-17T10:08:24.971714+00:00",
+  "Executed": true,
+  "task_success": true,
+  "e2e_success": true,
+  "checks": {
+    "MC1_Executed": true,
+    "MC2_NonEmpty": true,
+    "MC3_MachineDecodable": true,
+    "MC4_HardFormat": true
+  },
+  "run_id": "raeo_test_11_033d8528",
+  "sample_id": "req_graph_000011",
+  "crash": null,
+  "usage": {
+    "schema_version": 4,
+    "updated_at": "2026-04-17T10:08:24.129382+00:00",
+    "totals": {
+      "wall_sec": 154.4564,
+      "llm": {
+        "calls": 9,
+        "prompt_tokens": 25098,
+        "completion_tokens": 4772,
+        "total_tokens": 29870
+      }
+    },
+    "pass_counters": {
+      "module1": 1,
+      "module2": 1,
+      "module3": 1
+    },
+    "modules": {
+      "module1": {
+        "wall_sec": 13.5378,
+        "llm": {
+          "calls": 1,
+          "prompt_tokens": 1556,
+          "completion_tokens": 257,
+          "total_tokens": 1813
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 13.5378,
+            "llm": {
+              "calls": 1,
+              "prompt_tokens": 1556,
+              "completion_tokens": 257,
+              "total_tokens": 1813
+            }
+          }
+        ]
+      },
+      "module2": {
+        "wall_sec": 77.5796,
+        "llm": {
+          "calls": 3,
+          "prompt_tokens": 13770,
+          "completion_tokens": 3396,
+          "total_tokens": 17166
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 77.5796,
+            "llm": {
+              "calls": 3,
+              "prompt_tokens": 13770,
+              "completion_tokens": 3396,
+              "total_tokens": 17166
+            }
+          }
+        ]
+      },
+      "module3": {
+        "wall_sec": 34.4009,
+        "llm": {
+          "calls": 4,
+          "prompt_tokens": 7571,
+          "completion_tokens": 621,
+          "total_tokens": 8192
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 34.4009,
+            "llm": {
+              "calls": 4,
+              "prompt_tokens": 7571,
+              "completion_tokens": 621,
+              "total_tokens": 8192
+            },
+            "execute_only_nodes": null,
+            "nodes": {
+              "node_1": {
+                "wall_sec": 19.7505,
+                "infer_attempts": 4,
+                "llm": {
+                  "calls": 2,
+                  "prompt_tokens": 3329,
+                  "completion_tokens": 154,
+                  "total_tokens": 3483
+                }
+              },
+              "node_2": {
+                "wall_sec": 11.1478,
+                "infer_attempts": 1,
+                "llm": {
+                  "calls": 1,
+                  "prompt_tokens": 2162,
+                  "completion_tokens": 196,
+                  "total_tokens": 2358
+                }
+              },
+              "node_3": {
+                "wall_sec": 14.6172,
+                "infer_attempts": 1,
+                "llm": {
+                  "calls": 1,
+                  "prompt_tokens": 2080,
+                  "completion_tokens": 271,
+                  "total_tokens": 2351
+                }
+              }
+            }
+          }
+        ]
+      },
+      "module5": {
+        "wall_sec": 28.9363,
+        "llm": {
+          "calls": 1,
+          "prompt_tokens": 2201,
+          "completion_tokens": 498,
+          "total_tokens": 2699
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wall_sec": 28.9363,
+            "llm": {
+              "calls": 1,
+              "prompt_tokens": 2201,
+              "completion_tokens": 498,
+              "total_tokens": 2699
+            },
+            "graph_eval": {
+              "is_satisfied": true,
+              "graph_error_type": "none"
+            }
+          }
+        ]
+      }
+    },
+    "llm_events": [
+      {
+        "seq": 0,
+        "ts": "2026-04-17T10:06:03.206036+00:00",
+        "module": "module1",
+        "purpose": "dag_plan",
+        "model": "deepseek/deepseek-chat",
+        "latency_sec": 13.5366,
+        "prompt_tokens": 1556,
+        "completion_tokens": 257,
+        "total_tokens": 1813,
+        "node_id": null,
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 1,
+        "ts": "2026-04-17T10:06:14.239333+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-chat",
+        "latency_sec": 9.3822,
+        "prompt_tokens": 1733,
+        "completion_tokens": 169,
+        "total_tokens": 1902,
+        "node_id": "node_1",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 2,
+        "ts": "2026-04-17T10:07:15.470039+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-chat",
+        "latency_sec": 69.5375,
+        "prompt_tokens": 7161,
+        "completion_tokens": 1504,
+        "total_tokens": 8665,
+        "node_id": "node_3",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 3,
+        "ts": "2026-04-17T10:07:20.786508+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-chat",
+        "latency_sec": 75.934,
+        "prompt_tokens": 4876,
+        "completion_tokens": 1723,
+        "total_tokens": 6599,
+        "node_id": "node_2",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 4,
+        "ts": "2026-04-17T10:07:25.031666+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-chat",
+        "latency_sec": 4.2148,
+        "prompt_tokens": 1512,
+        "completion_tokens": 66,
+        "total_tokens": 1578,
+        "node_id": "node_1",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 5,
+        "ts": "2026-04-17T10:07:33.031151+00:00",
+        "module": "module3",
+        "purpose": "binder_repair",
+        "model": "deepseek/deepseek-chat",
+        "latency_sec": 5.6935,
+        "prompt_tokens": 1817,
+        "completion_tokens": 88,
+        "total_tokens": 1905,
+        "node_id": "node_1",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 6,
+        "ts": "2026-04-17T10:07:50.741260+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-chat",
+        "latency_sec": 10.1714,
+        "prompt_tokens": 2162,
+        "completion_tokens": 196,
+        "total_tokens": 2358,
+        "node_id": "node_2",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 7,
+        "ts": "2026-04-17T10:07:54.240229+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-chat",
+        "latency_sec": 13.666,
+        "prompt_tokens": 2080,
+        "completion_tokens": 271,
+        "total_tokens": 2351,
+        "node_id": "node_3",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 8,
+        "ts": "2026-04-17T10:08:24.127566+00:00",
+        "module": "module5",
+        "purpose": "graph_delivery",
+        "model": "deepseek/deepseek-chat",
+        "latency_sec": 28.9345,
+        "prompt_tokens": 2201,
+        "completion_tokens": 498,
+        "total_tokens": 2699,
+        "node_id": null,
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": 0,
+        "trigger": null
+      }
+    ],
+    "_next_seq": 9,
+    "_e2e_perf_t0": 327427.0785265
+  },
+  "final_dag_result": {
+    "graph_type": "DAG",
+    "edges": [
+      {
+        "source": "node_1",
+        "target": "node_2",
+        "edge_type": "data_dep"
+      },
+      {
+        "source": "node_1",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      }
+    ],
+    "task_specs": {
+      "automatic_speech_recognition": {
+        "task_type": "automatic_speech_recognition",
+        "pipeline_tag": "automatic-speech-recognition",
+        "mapped_method": "automatic_speech_recognition",
+        "required_args": [
+          "audio"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "audio",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.Union[bytes, typing.BinaryIO, str, pathlib.Path, ForwardRef('Image'), bytearray, memoryview]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "extra_body",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.Dict]",
+            "required": false
+          }
+        ]
+      },
+      "token_classification": {
+        "task_type": "token_classification",
+        "pipeline_tag": "token-classification",
+        "mapped_method": "token_classification",
+        "required_args": [
+          "text"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "text",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "<class 'str'>",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "aggregation_strategy",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[ForwardRef('TokenClassificationAggregationStrategy')]",
+            "required": false,
+            "allowed_values": [
+              "none",
+              "simple",
+              "first",
+              "average",
+              "max"
+            ]
+          },
+          {
+            "name": "ignore_labels",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[str]]",
+            "required": false
+          },
+          {
+            "name": "stride",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          }
+        ]
+      },
+      "sentence_similarity": {
+        "task_type": "sentence_similarity",
+        "pipeline_tag": "sentence-similarity",
+        "mapped_method": "sentence_similarity",
+        "required_args": [
+          "sentence",
+          "other_sentences"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "sentence",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "<class 'str'>",
+            "required": true
+          },
+          {
+            "name": "other_sentences",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.List[str]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          }
+        ]
+      }
+    },
+    "nodes": [
+      {
+        "node_id": "node_1",
+        "task": [
+          "automatic_speech_recognition"
+        ],
+        "language": "en",
+        "requirement_spec": "对用户提供的音频文件 'graph_011_audio_1.wav' 进行语音识别，生成完整的会议文字转录稿。输出应为纯文本格式的转录结果。",
+        "node_output": {
+          "text": " I'll give a brief update on the progress of the Apollo project. At this stage, the core modules are largely complete, at around 80%. The main remaining risk lies in the data interfaces, which still need to be reviewed and aligned with the marketing department as soon as possible. Based on the current pace, and assuming there are no changes in resource allocation, we plan to complete internal testing by March 28th. The testing phase will be primarily supported by the Beijing office, and I have already discussed the testing staffing requirements with Zhang Wei. Overall, the target remains unchanged. We aim for the Apollo project to go live as originally planned in Q2. If there are any adjustments along the way, I will communicate them promptly.",
+          "chunks": [
+            {
+              "text": " I'll give a brief update on the progress of the Apollo project.",
+              "timestamp": [
+                0.03096875,
+                2.93096875
+              ]
+            },
+            {
+              "text": " At this stage, the core modules are largely complete, at around 80%.",
+              "timestamp": [
+                3.55096875,
+                7.850968750000001
+              ]
+            },
+            {
+              "text": " The main remaining risk lies in the data interfaces,",
+              "timestamp": [
+                8.53096875,
+                12.03096875
+              ]
+            },
+            {
+              "text": " which still need to be reviewed and aligned with the marketing department as soon as possible.",
+              "timestamp": [
+                12.51096875,
+                16.55096875
+              ]
+            },
+            {
+              "text": " Based on the current pace, and assuming there are no changes in resource allocation,",
+              "timestamp": [
+                17.63096875,
+                21.770968749999998
+              ]
+            },
+            {
+              "text": " we plan to complete internal testing by March 28th.",
+              "timestamp": [
+                22.25096875,
+                25.47096875
+              ]
+            },
+            {
+              "text": " The testing phase will be primarily supported by the Beijing office,",
+              "timestamp": [
+                26.18721875,
+                29.86721875
+              ]
+            },
+            {
+              "text": " and I have already discussed the testing staffing requirements with Zhang Wei.",
+              "timestamp": [
+                30.14721875,
+                33.64721875
+              ]
+            },
+            {
+              "text": " Overall, the target remains unchanged.",
+              "timestamp": [
+                33.98721875,
+                36.207218749999996
+              ]
+            },
+            {
+              "text": " We aim for the Apollo project to go live as originally planned in Q2.",
+              "timestamp": [
+                37.24721875,
+                41.10721875
+              ]
+            },
+            {
+              "text": " If there are any adjustments along the way, I will communicate them promptly.",
+              "timestamp": [
+                41.76721875,
+                45.76721875
+              ]
+            }
+          ],
+          "inferred_languages": [
+            "en"
+          ],
+          "diarization_segments": []
+        }
+      },
+      {
+        "node_id": "node_2",
+        "task": [
+          "token_classification"
+        ],
+        "language": "en",
+        "requirement_spec": "对 node_1 生成的转录文本进行命名实体识别，识别并标注其中的人名、组织名、项目名、日期等实体。输出应包含实体列表及其类型。",
+        "node_output": [
+          {
+            "end": 55,
+            "score": 0.89784443,
+            "start": 49,
+            "word": "Apollo",
+            "entity_group": "MISC",
+            "entity": null
+          },
+          {
+            "end": 479,
+            "score": 0.99960345,
+            "start": 472,
+            "word": "Beijing",
+            "entity_group": "LOC",
+            "entity": null
+          },
+          {
+            "end": 565,
+            "score": 0.9958426,
+            "start": 556,
+            "word": "Zhang Wei",
+            "entity_group": "PER",
+            "entity": null
+          },
+          {
+            "end": 627,
+            "score": 0.8786417,
+            "start": 621,
+            "word": "Apollo",
+            "entity_group": "MISC",
+            "entity": null
+          }
+        ]
+      },
+      {
+        "node_id": "node_3",
+        "task": [
+          "sentence_similarity"
+        ],
+        "language": "en",
+        "requirement_spec": "计算用户提供的会议笔记文本（'My Conference Notes'）与 node_1 生成的完整转录文本之间的语义相似度，得到一个 [0,1] 区间的分数，用于衡量笔记与录音内容的对齐程度。",
+        "node_output": [
+          0.7773231863975525
+        ]
+      }
+    ]
+  },
+  "final_result": "{'transcription': \"I'll give a brief update on the progress of the Apollo project. At this stage, the core modules are largely complete, at around 80%. The main remaining risk lies in the data interfaces, which still need to be reviewed and aligned with the marketing department as soon as possible. Based on the current pace, and assuming there are no changes in resource allocation, we plan to complete internal testing by March 28th. The testing phase will be primarily supported by the Beijing office, and I have already discussed the testing staffing requirements with Zhang Wei. Overall, the target remains unchanged. We aim for the Apollo project to go live as originally planned in Q2. If there are any adjustments along the way, I will communicate them promptly.\", 'named_entities': [{'entity': 'Apollo', 'type': 'MISC', 'start': 49, 'end': 55}, {'entity': 'Beijing', 'type': 'LOC', 'start': 472, 'end': 479}, {'entity': 'Zhang Wei', 'type': 'PER', 'start': 556, 'end': 565}, {'entity': 'Apollo', 'type': 'MISC', 'start': 621, 'end': 627}], 'notes_alignment': {'similarity_score': 0.7773231863975525, 'interpretation': \"The user's notes show a high degree of alignment with the actual transcription, indicating they captured the main topics accurately.\"}}\n真实执行轨迹：{\"graph_type\": \"DAG\", \"edges\": [{\"source\": \"node_1\", \"target\": \"node_2\", \"edge_type\": \"data_dep\"}, {\"source\": \"node_1\", \"target\": \"node_3\", \"edge_type\": \"data_dep\"}], \"task_specs\": {\"automatic_speech_recognition\": {\"task_type\": \"automatic_speech_recognition\", \"pipeline_tag\": \"automatic-speech-recognition\", \"mapped_method\": \"automatic_speech_recognition\", \"required_args\": [\"audio\"], \"output_type_hint\": \"text\", \"parameters\": [{\"name\": \"audio\", \"kind\": \"POSITIONAL_OR_KEYWORD\", \"default\": null, \"annotation\": \"typing.Union[bytes, typing.BinaryIO, str, pathlib.Path, ForwardRef('Image'), bytearray, memoryview]\", \"required\": true}, {\"name\": \"model\", \"kind\": \"KEYWORD_ONLY\", \"default\": \"None\", \"annotation\": \"typing.Optional[str]\", \"required\": false}, {\"name\": \"extra_body\", \"kind\": \"KEYWORD_ONLY\", \"default\": \"None\", \"annotation\": \"typing.Optional[typing.Dict]\", \"required\": false}]}, \"token_classification\": {\"task_type\": \"token_classification\", \"pipeline_tag\": \"token-classification\", \"mapped_method\": \"token_classification\", \"required_args\": [\"text\"], \"output_type_hint\": \"text\", \"parameters\": [{\"name\": \"text\", \"kind\": \"POSITIONAL_OR_KEYWORD\", \"default\": null, \"annotation\": \"<class 'str'>\", \"required\": true}, {\"name\": \"model\", \"kind\": \"KEYWORD_ONLY\", \"default\": \"None\", \"annotation\": \"typing.Optional[str]\", \"required\": false}, {\"name\": \"aggregation_strategy\", \"kind\": \"KEYWORD_ONLY\", \"default\": \"None\", \"annotation\": \"typing.Optional[ForwardRef('TokenClassificationAggregationStrategy')]\", \"required\": false, \"allowed_values\": [\"none\", \"simple\", \"first\", \"average\", \"max\"]}, {\"name\": \"ignore_labels\", \"kind\": \"KEYWORD_ONLY\", \"default\": \"None\", \"annotation\": \"typing.Optional[typing.List[str]]\", \"required\": false}, {\"name\": \"stride\", \"kind\": \"KEYWORD_ONLY\", \"default\": \"None\", \"annotation\": \"typing.Optional[int]\", \"required\": false}]}, \"sentence_similarity\": {\"task_type\": \"sentence_similarity\", \"pipeline_tag\": \"sentence-similarity\", \"mapped_method\": \"sentence_similarity\", \"required_args\": [\"sentence\", \"other_sentences\"], \"output_type_hint\": \"text\", \"parameters\": [{\"name\": \"sentence\", \"kind\": \"POSITIONAL_OR_KEYWORD\", \"default\": null, \"annotation\": \"<class 'str'>\", \"required\": true}, {\"name\": \"other_sentences\", \"kind\": \"POSITIONAL_OR_KEYWORD\", \"default\": null, \"annotation\": \"typing.List[str]\", \"required\": true}, {\"name\": \"model\", \"kind\": \"KEYWORD_ONLY\", \"default\": \"None\", \"annotation\": \"typing.Optional[str]\", \"required\": false}]}}, \"nodes\": [{\"node_id\": \"node_1\", \"task\": [\"automatic_speech_recognition\"], \"language\": \"en\", \"requirement_spec\": \"对用户提供的音频文件 'graph_011_audio_1.wav' 进行语音识别，生成完整的会议文字转录稿。输出应为纯文本格式的转录结果。\", \"node_output\": {\"text\": \" I'll give a brief update on the progress of the Apollo project. At this stage, the core modules are largely complete, at around 80%. The main remaining risk lies in the data interfaces, which still need to be reviewed and aligned with the marketing department as soon as possible. Based on the current pace, and assuming there are no changes in resource allocation, we plan to complete internal testing by March 28th. The testing phase will be primarily supported by the Beijing office, and I have already discussed the testing staffing requirements with Zhang Wei. Overall, the target remains unchanged. We aim for the Apollo project to go live as originally planned in Q2. If there are any adjustments along the way, I will communicate them promptly.\", \"chunks\": [{\"text\": \" I'll give a brief update on the progress of the Apollo project.\", \"timestamp\": [0.03096875, 2.93096875]}, {\"text\": \" At this stage, the core modules are largely complete, at around 80%.\", \"timestamp\": [3.55096875, 7.850968750000001]}, {\"text\": \" The main remaining risk lies in the data interfaces,\", \"timestamp\": [8.53096875, 12.03096875]}, {\"text\": \" which still need to be reviewed and aligned with the marketing department as soon as possible.\", \"timestamp\": [12.51096875, 16.55096875]}, {\"text\": \" Based on the current pace, and assuming there are no changes in resource allocation,\", \"timestamp\": [17.63096875, 21.770968749999998]}, {\"text\": \" we plan to complete internal testing by March 28th.\", \"timestamp\": [22.25096875, 25.47096875]}, {\"text\": \" The testing phase will be primarily supported by the Beijing office,\", \"timestamp\": [26.18721875, 29.86721875]}, {\"text\": \" and I have already discussed the testing staffing requirements with Zhang Wei.\", \"timestamp\": [30.14721875, 33.64721875]}, {\"text\": \" Overall, the target remains unchanged.\", \"timestamp\": [33.98721875, 36.207218749999996]}, {\"text\": \" We aim for the Apollo project to go live as originally planned in Q2.\", \"timestamp\": [37.24721875, 41.10721875]}, {\"text\": \" If there are any adjustments along the way, I will communicate them promptly.\", \"timestamp\": [41.76721875, 45.76721875]}], \"inferred_languages\": [\"en\"], \"diarization_segments\": []}}, {\"node_id\": \"node_2\", \"task\": [\"token_classification\"], \"language\": \"en\", \"requirement_spec\": \"对 node_1 生成的转录文本进行命名实体识别，识别并标注其中的人名、组织名、项目名、日期等实体。输出应包含实体列表及其类型。\", \"node_output\": [{\"end\": 55, \"score\": 0.89784443, \"start\": 49, \"word\": \"Apollo\", \"entity_group\": \"MISC\", \"entity\": null}, {\"end\": 479, \"score\": 0.99960345, \"start\": 472, \"word\": \"Beijing\", \"entity_group\": \"LOC\", \"entity\": null}, {\"end\": 565, \"score\": 0.9958426, \"start\": 556, \"word\": \"Zhang Wei\", \"entity_group\": \"PER\", \"entity\": null}, {\"end\": 627, \"score\": 0.8786417, \"start\": 621, \"word\": \"Apollo\", \"entity_group\": \"MISC\", \"entity\": null}]}, {\"node_id\": \"node_3\", \"task\": [\"sentence_similarity\"], \"language\": \"en\", \"requirement_spec\": \"计算用户提供的会议笔记文本（'My Conference Notes'）与 node_1 生成的完整转录文本之间的语义相似度，得到一个 [0,1] 区间的分数，用于衡量笔记与录音内容的对齐程度。\", \"node_output\": [0.7773231863975525]}]}",
+  "graph_final_message": null,
+  "graph_eval_summary": {
+    "is_satisfied": true,
+    "graph_error_type": "none",
+    "format_requirement_detected": false
+  },
+  "datasets_meta": {
+    "split": "test",
+    "difficulty": "complex",
+    "task": [
+      "automatic_speech_recognition",
+      "token_classification",
+      "sentence_similarity"
+    ],
+    "expected_output_type": "text"
+  }
+}

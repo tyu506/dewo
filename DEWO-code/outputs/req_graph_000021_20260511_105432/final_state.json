@@ -1,0 +1,37 @@
+{
+  "run_id": "dewo_test_1_1ba75fd9",
+  "sample_id": "req_graph_000021",
+  "query": "I have an image named 'graph_021_image_1.png'. First, describe the overall scene in the image. At the same time, detect and list the main objects present in the image with their labels. Finally, combine both results into a structured English report with two sections: 'Scene Description' and 'Detected Objects'.",
+  "inputs": {
+    "image": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png"
+  },
+  "inputs_meta": {
+    "image": {
+      "path": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png",
+      "exists": true,
+      "file_kind": "image",
+      "suffix": ".png",
+      "mime": "image/png",
+      "size_bytes": 5552349,
+      "mtime_utc": "2026-04-13T09:06:23.332945+00:00",
+      "meta": {
+        "format": "PNG",
+        "width": 2730,
+        "height": 1535,
+        "mode": "RGB"
+      }
+    }
+  },
+  "datasets_meta": {
+    "split": "test",
+    "difficulty": "complex",
+    "task": [
+      "image_text_to_text",
+      "object_detection",
+      "summarization"
+    ],
+    "expected_output_type": "text"
+  },
+  "infer_assets_dir": "D:\\Project\\YTY\\DEWO\\DEWO-code\\outputs\\req_graph_000021_20260511_105432",
+  "candidate_frontier": {}
+}

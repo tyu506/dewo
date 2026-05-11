@@ -1,0 +1,4 @@
+student_id,name,program,year,home_address,email
+202031101683,Stella,Computer Science,2020,"123 Maple St, Apt 5B, Seattle, WA 98101",stella.student@example.edu
+202031101684,Alex,Mathematics,2020,"88 Pine Ave, San Jose, CA 95112",alex.student@example.edu
+202031101685,Jamie,Physics,2021,"45 Oak Rd, Austin, TX 78701",jamie.student@example.edu

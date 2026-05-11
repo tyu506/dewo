@@ -1,0 +1,1540 @@
+{
+  "run_id": "dewo_test_1_d72bfd92",
+  "sample_id": "req_graph_000021",
+  "query": "I have an image named 'graph_021_image_1.png'. First, describe the overall scene in the image. At the same time, detect and list the main objects present in the image with their labels. Finally, combine both results into a structured English report with two sections: 'Scene Description' and 'Detected Objects'.",
+  "inputs": {
+    "image": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png"
+  },
+  "inputs_meta": {
+    "image": {
+      "path": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png",
+      "exists": true,
+      "file_kind": "image",
+      "suffix": ".png",
+      "mime": "image/png",
+      "size_bytes": 5552349,
+      "mtime_utc": "2026-04-13T09:06:23.332945+00:00",
+      "meta": {
+        "format": "PNG",
+        "width": 2730,
+        "height": 1535,
+        "mode": "RGB"
+      }
+    }
+  },
+  "datasets_meta": {
+    "split": "test",
+    "difficulty": "complex",
+    "task": [
+      "image_text_to_text",
+      "object_detection",
+      "summarization"
+    ],
+    "expected_output_type": "text"
+  },
+  "infer_assets_dir": "D:\\Project\\YTY\\DEWO\\DEWO-code\\outputs\\req_graph_000021_20260511_111255",
+  "dag_plan": {
+    "graph_type": "DAG",
+    "nodes": [
+      {
+        "node_id": "node_1",
+        "task": [
+          "image_text_to_text"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图像与文本prompt 'Describe the overall scene in this image.' 进行推理，输出英文场景描述文本，供后续合并。"
+      },
+      {
+        "node_id": "node_2",
+        "task": [
+          "object_detection"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图像进行目标检测，输出主要物体列表及标签，供后续合并。"
+      },
+      {
+        "node_id": "node_3",
+        "task": [
+          "text_generation"
+        ],
+        "language": "en",
+        "requirement_spec": "合并 node_1 的场景描述与 node_2 的物体列表，生成结构化英文报告，包括 'Scene Description' 和 'Detected Objects' 两个标题，报告格式为纯文本，各标题后跟冒号和换行内容。仅输出报告文本。"
+      }
+    ],
+    "edges": [
+      {
+        "source": "node_1",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      },
+      {
+        "source": "node_2",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      }
+    ],
+    "task_specs": {
+      "image_text_to_text": {
+        "task_type": "image_text_to_text",
+        "pipeline_tag": "image-text-to-text",
+        "mapped_method": "chat_completion",
+        "required_args": [
+          "messages"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "messages",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.List[typing.Union[typing.Dict, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputMessage]]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "stream",
+            "kind": "KEYWORD_ONLY",
+            "default": "False",
+            "annotation": "<class 'bool'>",
+            "required": false
+          },
+          {
+            "name": "frequency_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "logit_bias",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[float]]",
+            "required": false
+          },
+          {
+            "name": "logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[bool]",
+            "required": false
+          },
+          {
+            "name": "max_tokens",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "n",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "presence_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "response_format",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatText, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONSchema, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONObject, NoneType]",
+            "required": false
+          },
+          {
+            "name": "seed",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "stop",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[str]]",
+            "required": false
+          },
+          {
+            "name": "stream_options",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputStreamOptions]",
+            "required": false
+          },
+          {
+            "name": "temperature",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "tool_choice",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputToolChoiceClass, ForwardRef('ChatCompletionInputToolChoiceEnum'), NoneType]",
+            "required": false,
+            "allowed_values": [
+              "auto",
+              "none",
+              "required"
+            ]
+          },
+          {
+            "name": "tool_prompt",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "tools",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputTool]]",
+            "required": false
+          },
+          {
+            "name": "top_logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "top_p",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "extra_body",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.Dict]",
+            "required": false
+          }
+        ]
+      },
+      "object_detection": {
+        "task_type": "object_detection",
+        "pipeline_tag": "object-detection",
+        "mapped_method": "object_detection",
+        "required_args": [
+          "image"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "image",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.Union[bytes, typing.BinaryIO, str, pathlib.Path, ForwardRef('Image'), bytearray, memoryview]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "threshold",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          }
+        ]
+      },
+      "text_generation": {
+        "task_type": "text_generation",
+        "pipeline_tag": "text-generation",
+        "mapped_method": "chat_completion",
+        "required_args": [
+          "messages"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "messages",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.List[typing.Union[typing.Dict, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputMessage]]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "stream",
+            "kind": "KEYWORD_ONLY",
+            "default": "False",
+            "annotation": "<class 'bool'>",
+            "required": false
+          },
+          {
+            "name": "frequency_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "logit_bias",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[float]]",
+            "required": false
+          },
+          {
+            "name": "logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[bool]",
+            "required": false
+          },
+          {
+            "name": "max_tokens",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "n",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "presence_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "response_format",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatText, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONSchema, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONObject, NoneType]",
+            "required": false
+          },
+          {
+            "name": "seed",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "stop",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[str]]",
+            "required": false
+          },
+          {
+            "name": "stream_options",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputStreamOptions]",
+            "required": false
+          },
+          {
+            "name": "temperature",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "tool_choice",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputToolChoiceClass, ForwardRef('ChatCompletionInputToolChoiceEnum'), NoneType]",
+            "required": false,
+            "allowed_values": [
+              "auto",
+              "none",
+              "required"
+            ]
+          },
+          {
+            "name": "tool_prompt",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "tools",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputTool]]",
+            "required": false
+          },
+          {
+            "name": "top_logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "top_p",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "extra_body",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.Dict]",
+            "required": false
+          }
+        ]
+      }
+    }
+  },
+  "candidate_frontier": {},
+  "binding_plan": {
+    "by_node_id": {
+      "node_2": {
+        "selected_from_task_type": "object_detection",
+        "best": {
+          "model_id": "facebook/detr-resnet-50",
+          "prior_score": 92.75,
+          "reason": "基于DETR架构，ResNet-50骨干网络，在COCO上预训练，同样适合目标检测任务，精度略低于101版本但依然高度适配。"
+        },
+        "backups": [
+          {
+            "model_id": "facebook/detr-resnet-101",
+            "prior_score": 59.0,
+            "reason": "基于DETR架构，ResNet-101骨干网络，在COCO数据集上预训练，专为目标检测设计，能输出物体列表及标签，适配度高。"
+          }
+        ]
+      },
+      "node_1": {
+        "selected_from_task_type": "image_text_to_text",
+        "best": {
+          "model_id": "google/gemma-4-31B-it",
+          "prior_score": 95.02123962009392,
+          "reason": "最新Gemma4指令微调版，多模态性能强，英文描述精准。"
+        },
+        "backups": [
+          {
+            "model_id": "Qwen/Qwen3.6-35B-A3B",
+            "prior_score": 91.69551647775911,
+            "reason": "大型MoE指令微调多模态模型，对话能力强，适合英文场景描述。"
+          },
+          {
+            "model_id": "google/gemma-4-26B-A4B-it",
+            "prior_score": 88.08468739672226,
+            "reason": "Gemma4 MoE指令版本，兼顾性能与效率，适合场景描述。"
+          },
+          {
+            "model_id": "Qwen/Qwen3.5-35B-A3B",
+            "prior_score": 84.96709415558085,
+            "reason": "较大MoE指令模型，语言生成丰富，适配英文场景描述。"
+          },
+          {
+            "model_id": "Qwen/Qwen3.5-9B",
+            "prior_score": 84.5238686893067,
+            "reason": "中等规模多模态模型，指令跟随较好，适合一般场景描述。"
+          }
+        ]
+      },
+      "node_3": {
+        "selected_from_task_type": "text_generation",
+        "best": {
+          "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+          "prior_score": 88.60291432064045,
+          "reason": "大型最新模型，指令遵循能力强，适合结构报告生成。"
+        },
+        "backups": [
+          {
+            "model_id": "openai/gpt-oss-120b",
+            "prior_score": 83.7151111117344,
+            "reason": "120B开源模型，性能顶尖，指令遵循极佳。"
+          },
+          {
+            "model_id": "openai/gpt-oss-20b",
+            "prior_score": 82.54675342162042,
+            "reason": "20B模型，性能较强，适合结构输出。"
+          },
+          {
+            "model_id": "deepseek-ai/DeepSeek-V3.2",
+            "prior_score": 80.75826264053146,
+            "reason": "V3.2最新版，性能优秀，指令遵循强。"
+          },
+          {
+            "model_id": "deepseek-ai/DeepSeek-V4-Flash",
+            "prior_score": 80.24680884037639,
+            "reason": "与V4-Pro同系列，能力略低但依然优秀。"
+          }
+        ]
+      }
+    },
+    "meta": {
+      "generated_at": "2026-05-11T03:14:07.026919+00:00"
+    }
+  },
+  "node_outputs": {
+    "node_1": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "A medium shot shows a man riding a bicycle on a path in a park, with a brown dog running alongside him. The man is wearing a blue jacket and is riding a black bicycle. The dog is a medium-sized, brown dog with a fluffy tail. The park is filled with trees with yellow and green leaves, and there is a wooden bench on the left side of the path. The sun is shining through the trees, creating a warm and bright atmosphere.",
+            "reasoning": null,
+            "tool_call_id": null,
+            "tool_calls": null
+          },
+          "logprobs": null
+        }
+      ],
+      "created": 1778469267,
+      "id": "79af07095177b793143442896a5e9cb9",
+      "model": "google/gemma-4-31b-it",
+      "system_fingerprint": "",
+      "usage": {
+        "completion_tokens": 95,
+        "prompt_tokens": 145,
+        "total_tokens": 240
+      },
+      "object": "chat.completion"
+    },
+    "node_2": [
+      {
+        "box": {
+          "xmax": 1148,
+          "xmin": 380,
+          "ymax": 1326,
+          "ymin": 908
+        },
+        "label": "bench",
+        "score": 0.9985270500183105
+      },
+      {
+        "box": {
+          "xmax": 1650,
+          "xmin": 1110,
+          "ymax": 1413,
+          "ymin": 961
+        },
+        "label": "dog",
+        "score": 0.9994999170303345
+      },
+      {
+        "box": {
+          "xmax": 2568,
+          "xmin": 2384,
+          "ymax": 1166,
+          "ymin": 1017
+        },
+        "label": "bench",
+        "score": 0.9968650937080383
+      },
+      {
+        "box": {
+          "xmax": 2195,
+          "xmin": 1705,
+          "ymax": 1434,
+          "ymin": 668
+        },
+        "label": "bicycle",
+        "score": 0.9992384910583496
+      },
+      {
+        "box": {
+          "xmax": 2216,
+          "xmin": 1703,
+          "ymax": 1141,
+          "ymin": 178
+        },
+        "label": "person",
+        "score": 0.9978468418121338
+      }
+    ],
+    "node_3": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Scene Description:\nA medium shot shows a man riding a bicycle on a path in a park, with a brown dog running alongside him. The man is wearing a blue jacket and is riding a black bicycle. The dog is a medium-sized, brown dog with a fluffy tail. The park is filled with trees with yellow and green leaves, and there is a wooden bench on the left side of the path. The sun is shining through the trees, creating a warm and bright atmosphere.\n\nDetected Objects:\n- bench (score: 0.9985)\n- dog (score: 0.9995)\n- bench (score: 0.9969)\n- bicycle (score: 0.9992)\n- person (score: 0.9978)",
+            "reasoning": null,
+            "tool_call_id": null,
+            "tool_calls": null
+          },
+          "logprobs": null
+        }
+      ],
+      "created": 1778469309,
+      "id": "c1ae64d93b1e85f77273b702fc671a2e",
+      "model": "deepseek/deepseek-v4-pro",
+      "system_fingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+      "usage": {
+        "completion_tokens": 474,
+        "prompt_tokens": 207,
+        "total_tokens": 681
+      },
+      "object": "chat.completion"
+    }
+  },
+  "execution_trace": [
+    {
+      "node_id": "node_1",
+      "attempt": 1,
+      "status": "ok",
+      "phase": "executed",
+      "failure_class": null,
+      "repair_action": "none",
+      "infer_call": {
+        "task_type": "image_text_to_text",
+        "model": "google/gemma-4-31B-it",
+        "inputs_preview": "{'messages': [{'role': 'user', 'content': [{'type': 'text', 'text': 'Describe the overall scene in this image.'}, {'type': 'image_url', 'image_url': {'url': 'file:///D:/Project/YTY/DEWO/DEWO-Set/assets/graph_021_image_1.png'}}]}]}",
+        "args": {
+          "task_type": "image_text_to_text",
+          "model": "google/gemma-4-31B-it",
+          "inputs": {
+            "messages": [
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Describe the overall scene in this image."
+                  },
+                  {
+                    "type": "image_url",
+                    "image_url": {
+                      "url": "file:///D:/Project/YTY/DEWO/DEWO-Set/assets/graph_021_image_1.png"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": {
+            "max_tokens": 300,
+            "temperature": 0.7
+          },
+          "parameters_extra_json": "{}",
+          "timeout_s": 120.0
+        }
+      },
+      "binder_notes": "使用 global_inputs 中的图像路径（转换反斜杠为正斜杠并添加 file:/// 前缀）和节点任务要求的 prompt 构造 messages。",
+      "latency_sec": 35.2222,
+      "error": null
+    },
+    {
+      "node_id": "node_2",
+      "attempt": 1,
+      "status": "ok",
+      "phase": "executed",
+      "failure_class": null,
+      "repair_action": "none",
+      "infer_call": {
+        "task_type": "object_detection",
+        "model": "facebook/detr-resnet-50",
+        "inputs_preview": "{'image': 'D:\\\\Project\\\\YTY\\\\DEWO\\\\DEWO-Set\\\\assets\\\\graph_021_image_1.png'}",
+        "args": {
+          "task_type": "object_detection",
+          "model": "facebook/detr-resnet-50",
+          "inputs": {
+            "image": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png"
+          },
+          "parameters": {
+            "threshold": 0.5
+          },
+          "parameters_extra_json": "{}",
+          "timeout_s": 120.0
+        }
+      },
+      "binder_notes": "使用global_inputs中的图像路径作为输入，设置阈值0.5进行目标检测。",
+      "latency_sec": 8.9682,
+      "error": null
+    },
+    {
+      "node_id": "node_3",
+      "attempt": 1,
+      "status": "ok",
+      "phase": "executed",
+      "failure_class": null,
+      "repair_action": "none",
+      "infer_call": {
+        "task_type": "text_generation",
+        "model": "deepseek-ai/DeepSeek-V4-Pro",
+        "inputs_preview": "{'messages': [{'role': 'user', 'content': \"Combine the following scene description and detected objects into a structured English report with two sections: 'Scene Description' and 'Detected Objects'. Use plain text format. Each title should be followed by a colon and the content on a new line.\\n\\nSc",
+        "args": {
+          "task_type": "text_generation",
+          "model": "deepseek-ai/DeepSeek-V4-Pro",
+          "inputs": {
+            "messages": [
+              {
+                "role": "user",
+                "content": "Combine the following scene description and detected objects into a structured English report with two sections: 'Scene Description' and 'Detected Objects'. Use plain text format. Each title should be followed by a colon and the content on a new line.\n\nScene Description:\nA medium shot shows a man riding a bicycle on a path in a park, with a brown dog running alongside him. The man is wearing a blue jacket and is riding a black bicycle. The dog is a medium-sized, brown dog with a fluffy tail. The park is filled with trees with yellow and green leaves, and there is a wooden bench on the left side of the path. The sun is shining through the trees, creating a warm and bright atmosphere.\n\nDetected Objects:\n- bench (score: 0.9985)\n- dog (score: 0.9995)\n- bench (score: 0.9969)\n- bicycle (score: 0.9992)\n- person (score: 0.9978)"
+              }
+            ]
+          },
+          "parameters": {
+            "max_tokens": 512,
+            "temperature": 0.7
+          },
+          "parameters_extra_json": "{}",
+          "timeout_s": 120.0
+        }
+      },
+      "binder_notes": "使用上游节点1的场景描述文本和节点2的物体检测结果列表，构造用户消息请求模型生成结构化报告。",
+      "latency_sec": 19.3896,
+      "error": null
+    }
+  ],
+  "final_output_candidate": {
+    "from_node_id": "node_3",
+    "output": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Scene Description:\nA medium shot shows a man riding a bicycle on a path in a park, with a brown dog running alongside him. The man is wearing a blue jacket and is riding a black bicycle. The dog is a medium-sized, brown dog with a fluffy tail. The park is filled with trees with yellow and green leaves, and there is a wooden bench on the left side of the path. The sun is shining through the trees, creating a warm and bright atmosphere.\n\nDetected Objects:\n- bench (score: 0.9985)\n- dog (score: 0.9995)\n- bench (score: 0.9969)\n- bicycle (score: 0.9992)\n- person (score: 0.9978)",
+            "reasoning": null,
+            "tool_call_id": null,
+            "tool_calls": null
+          },
+          "logprobs": null
+        }
+      ],
+      "created": 1778469309,
+      "id": "c1ae64d93b1e85f77273b702fc671a2e",
+      "model": "deepseek/deepseek-v4-pro",
+      "system_fingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+      "usage": {
+        "completion_tokens": 474,
+        "prompt_tokens": 207,
+        "total_tokens": 681
+      },
+      "object": "chat.completion"
+    },
+    "output_type": null
+  },
+  "final_dag_result": {
+    "graph_type": "DAG",
+    "edges": [
+      {
+        "source": "node_1",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      },
+      {
+        "source": "node_2",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      }
+    ],
+    "task_specs": {
+      "image_text_to_text": {
+        "task_type": "image_text_to_text",
+        "pipeline_tag": "image-text-to-text",
+        "mapped_method": "chat_completion",
+        "required_args": [
+          "messages"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "messages",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.List[typing.Union[typing.Dict, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputMessage]]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "stream",
+            "kind": "KEYWORD_ONLY",
+            "default": "False",
+            "annotation": "<class 'bool'>",
+            "required": false
+          },
+          {
+            "name": "frequency_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "logit_bias",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[float]]",
+            "required": false
+          },
+          {
+            "name": "logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[bool]",
+            "required": false
+          },
+          {
+            "name": "max_tokens",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "n",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "presence_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "response_format",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatText, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONSchema, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONObject, NoneType]",
+            "required": false
+          },
+          {
+            "name": "seed",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "stop",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[str]]",
+            "required": false
+          },
+          {
+            "name": "stream_options",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputStreamOptions]",
+            "required": false
+          },
+          {
+            "name": "temperature",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "tool_choice",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputToolChoiceClass, ForwardRef('ChatCompletionInputToolChoiceEnum'), NoneType]",
+            "required": false,
+            "allowed_values": [
+              "auto",
+              "none",
+              "required"
+            ]
+          },
+          {
+            "name": "tool_prompt",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "tools",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputTool]]",
+            "required": false
+          },
+          {
+            "name": "top_logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "top_p",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "extra_body",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.Dict]",
+            "required": false
+          }
+        ]
+      },
+      "object_detection": {
+        "task_type": "object_detection",
+        "pipeline_tag": "object-detection",
+        "mapped_method": "object_detection",
+        "required_args": [
+          "image"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "image",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.Union[bytes, typing.BinaryIO, str, pathlib.Path, ForwardRef('Image'), bytearray, memoryview]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "threshold",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          }
+        ]
+      },
+      "text_generation": {
+        "task_type": "text_generation",
+        "pipeline_tag": "text-generation",
+        "mapped_method": "chat_completion",
+        "required_args": [
+          "messages"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "messages",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.List[typing.Union[typing.Dict, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputMessage]]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "stream",
+            "kind": "KEYWORD_ONLY",
+            "default": "False",
+            "annotation": "<class 'bool'>",
+            "required": false
+          },
+          {
+            "name": "frequency_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "logit_bias",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[float]]",
+            "required": false
+          },
+          {
+            "name": "logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[bool]",
+            "required": false
+          },
+          {
+            "name": "max_tokens",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "n",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "presence_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "response_format",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatText, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONSchema, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONObject, NoneType]",
+            "required": false
+          },
+          {
+            "name": "seed",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "stop",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[str]]",
+            "required": false
+          },
+          {
+            "name": "stream_options",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputStreamOptions]",
+            "required": false
+          },
+          {
+            "name": "temperature",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "tool_choice",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputToolChoiceClass, ForwardRef('ChatCompletionInputToolChoiceEnum'), NoneType]",
+            "required": false,
+            "allowed_values": [
+              "auto",
+              "none",
+              "required"
+            ]
+          },
+          {
+            "name": "tool_prompt",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "tools",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputTool]]",
+            "required": false
+          },
+          {
+            "name": "top_logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "top_p",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "extra_body",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.Dict]",
+            "required": false
+          }
+        ]
+      }
+    },
+    "nodes": [
+      {
+        "node_id": "node_1",
+        "task": [
+          "image_text_to_text"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图像与文本prompt 'Describe the overall scene in this image.' 进行推理，输出英文场景描述文本，供后续合并。",
+        "node_output": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "A medium shot shows a man riding a bicycle on a path in a park, with a brown dog running alongside him. The man is wearing a blue jacket and is riding a black bicycle. The dog is a medium-sized, brown dog with a fluffy tail. The park is filled with trees with yellow and green leaves, and there is a wooden bench on the left side of the path. The sun is shining through the trees, creating a warm and bright atmosphere.",
+                "reasoning": null,
+                "tool_call_id": null,
+                "tool_calls": null
+              },
+              "logprobs": null
+            }
+          ],
+          "created": 1778469267,
+          "id": "79af07095177b793143442896a5e9cb9",
+          "model": "google/gemma-4-31b-it",
+          "system_fingerprint": "",
+          "usage": {
+            "completion_tokens": 95,
+            "prompt_tokens": 145,
+            "total_tokens": 240
+          },
+          "object": "chat.completion"
+        }
+      },
+      {
+        "node_id": "node_2",
+        "task": [
+          "object_detection"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图像进行目标检测，输出主要物体列表及标签，供后续合并。",
+        "node_output": [
+          {
+            "box": {
+              "xmax": 1148,
+              "xmin": 380,
+              "ymax": 1326,
+              "ymin": 908
+            },
+            "label": "bench",
+            "score": 0.9985270500183105
+          },
+          {
+            "box": {
+              "xmax": 1650,
+              "xmin": 1110,
+              "ymax": 1413,
+              "ymin": 961
+            },
+            "label": "dog",
+            "score": 0.9994999170303345
+          },
+          {
+            "box": {
+              "xmax": 2568,
+              "xmin": 2384,
+              "ymax": 1166,
+              "ymin": 1017
+            },
+            "label": "bench",
+            "score": 0.9968650937080383
+          },
+          {
+            "box": {
+              "xmax": 2195,
+              "xmin": 1705,
+              "ymax": 1434,
+              "ymin": 668
+            },
+            "label": "bicycle",
+            "score": 0.9992384910583496
+          },
+          {
+            "box": {
+              "xmax": 2216,
+              "xmin": 1703,
+              "ymax": 1141,
+              "ymin": 178
+            },
+            "label": "person",
+            "score": 0.9978468418121338
+          }
+        ]
+      },
+      {
+        "node_id": "node_3",
+        "task": [
+          "text_generation"
+        ],
+        "language": "en",
+        "requirement_spec": "合并 node_1 的场景描述与 node_2 的物体列表，生成结构化英文报告，包括 'Scene Description' 和 'Detected Objects' 两个标题，报告格式为纯文本，各标题后跟冒号和换行内容。仅输出报告文本。",
+        "node_output": {
+          "choices": [
+            {
+              "finish_reason": "stop",
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "Scene Description:\nA medium shot shows a man riding a bicycle on a path in a park, with a brown dog running alongside him. The man is wearing a blue jacket and is riding a black bicycle. The dog is a medium-sized, brown dog with a fluffy tail. The park is filled with trees with yellow and green leaves, and there is a wooden bench on the left side of the path. The sun is shining through the trees, creating a warm and bright atmosphere.\n\nDetected Objects:\n- bench (score: 0.9985)\n- dog (score: 0.9995)\n- bench (score: 0.9969)\n- bicycle (score: 0.9992)\n- person (score: 0.9978)",
+                "reasoning": null,
+                "tool_call_id": null,
+                "tool_calls": null
+              },
+              "logprobs": null
+            }
+          ],
+          "created": 1778469309,
+          "id": "c1ae64d93b1e85f77273b702fc671a2e",
+          "model": "deepseek/deepseek-v4-pro",
+          "system_fingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+          "usage": {
+            "completion_tokens": 474,
+            "prompt_tokens": 207,
+            "total_tokens": 681
+          },
+          "object": "chat.completion"
+        }
+      }
+    ]
+  },
+  "graph_eval": {
+    "format_requirement_detected": true,
+    "final_result": "Scene Description:\nA medium shot shows a man riding a bicycle on a path in a park, with a brown dog running alongside him. The man is wearing a blue jacket and is riding a black bicycle. The dog is a medium-sized, brown dog with a fluffy tail. The park is filled with trees with yellow and green leaves, and there is a wooden bench on the left side of the path. The sun is shining through the trees, creating a warm and bright atmosphere.\n\nDetected Objects:\n- bench (score: 0.9985)\n- dog (score: 0.9995)\n- bench (score: 0.9969)\n- bicycle (score: 0.9992)\n- person (score: 0.9978)",
+    "reason": "用户要求对图像进行场景描述和目标检测，并合并为结构化英文报告。DAG中node_1执行场景描述任务，输出文本描述；node_2执行目标检测任务，输出物体列表（含标签和置信度）；node_3将前两个节点的结果合并，按照'Scene Description'和'Detected Objects'两部分生成最终报告。最终输出即为node_3生成的报告文本。",
+    "e2e": true,
+    "is_satisfied": true,
+    "graph_error_type": "none"
+  },
+  "graph_repair_trace": [
+    {
+      "round": 0,
+      "graph_eval": {
+        "format_requirement_detected": true,
+        "final_result": "Scene Description:\nA medium shot shows a man riding a bicycle on a path in a park, with a brown dog running alongside him. The man is wearing a blue jacket and is riding a black bicycle. The dog is a medium-sized, brown dog with a fluffy tail. The park is filled with trees with yellow and green leaves, and there is a wooden bench on the left side of the path. The sun is shining through the trees, creating a warm and bright atmosphere.\n\nDetected Objects:\n- bench (score: 0.9985)\n- dog (score: 0.9995)\n- bench (score: 0.9969)\n- bicycle (score: 0.9992)\n- person (score: 0.9978)",
+        "reason": "用户要求对图像进行场景描述和目标检测，并合并为结构化英文报告。DAG中node_1执行场景描述任务，输出文本描述；node_2执行目标检测任务，输出物体列表（含标签和置信度）；node_3将前两个节点的结果合并，按照'Scene Description'和'Detected Objects'两部分生成最终报告。最终输出即为node_3生成的报告文本。",
+        "e2e": true,
+        "is_satisfied": true,
+        "graph_error_type": "none"
+      },
+      "ts": "2026-05-11T03:15:33.582015+00:00"
+    }
+  ],
+  "usage": {
+    "schema_version": 4,
+    "updated_at": "2026-05-11T03:15:33.582015+00:00",
+    "totals": {
+      "wall_sec": 157.68,
+      "llm": {
+        "calls": 8,
+        "prompt_tokens": 21751,
+        "completion_tokens": 8722,
+        "total_tokens": 30473
+      }
+    },
+    "pass_counters": {
+      "module1": 1,
+      "module2": 1,
+      "module3": 1
+    },
+    "modules": {
+      "module1": {
+        "wall_sec": 19.4684,
+        "llm": {
+          "calls": 1,
+          "prompt_tokens": 1493,
+          "completion_tokens": 1091,
+          "total_tokens": 2584
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 19.4684,
+            "llm": {
+              "calls": 1,
+              "prompt_tokens": 1493,
+              "completion_tokens": 1091,
+              "total_tokens": 2584
+            }
+          }
+        ]
+      },
+      "module2": {
+        "wall_sec": 51.659,
+        "llm": {
+          "calls": 3,
+          "prompt_tokens": 10214,
+          "completion_tokens": 5748,
+          "total_tokens": 15962
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 51.659,
+            "llm": {
+              "calls": 3,
+              "prompt_tokens": 10214,
+              "completion_tokens": 5748,
+              "total_tokens": 15962
+            }
+          }
+        ]
+      },
+      "module3": {
+        "wall_sec": 78.946,
+        "llm": {
+          "calls": 3,
+          "prompt_tokens": 6275,
+          "completion_tokens": 1505,
+          "total_tokens": 7780
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 78.946,
+            "llm": {
+              "calls": 3,
+              "prompt_tokens": 6275,
+              "completion_tokens": 1505,
+              "total_tokens": 7780
+            },
+            "execute_only_nodes": null,
+            "nodes": {
+              "node_2": {
+                "wall_sec": 12.3533,
+                "infer_attempts": 1,
+                "llm": {
+                  "calls": 1,
+                  "prompt_tokens": 1347,
+                  "completion_tokens": 159,
+                  "total_tokens": 1506
+                }
+              },
+              "node_1": {
+                "wall_sec": 46.1639,
+                "infer_attempts": 1,
+                "llm": {
+                  "calls": 1,
+                  "prompt_tokens": 2192,
+                  "completion_tokens": 657,
+                  "total_tokens": 2849
+                }
+              },
+              "node_3": {
+                "wall_sec": 32.7619,
+                "infer_attempts": 1,
+                "llm": {
+                  "calls": 1,
+                  "prompt_tokens": 2736,
+                  "completion_tokens": 689,
+                  "total_tokens": 3425
+                }
+              }
+            }
+          }
+        ]
+      },
+      "module5": {
+        "wall_sec": 7.6048,
+        "llm": {
+          "calls": 1,
+          "prompt_tokens": 3769,
+          "completion_tokens": 378,
+          "total_tokens": 4147
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wall_sec": 7.6048,
+            "llm": {
+              "calls": 1,
+              "prompt_tokens": 3769,
+              "completion_tokens": 378,
+              "total_tokens": 4147
+            },
+            "graph_eval": {
+              "is_satisfied": true,
+              "graph_error_type": "none"
+            }
+          }
+        ]
+      }
+    },
+    "llm_events": [
+      {
+        "seq": 0,
+        "ts": "2026-05-11T03:13:15.364663+00:00",
+        "module": "module1",
+        "purpose": "dag_plan",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 19.4666,
+        "prompt_tokens": 1493,
+        "completion_tokens": 1091,
+        "total_tokens": 2584,
+        "node_id": null,
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 1,
+        "ts": "2026-05-11T03:13:24.792661+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 6.9628,
+        "prompt_tokens": 779,
+        "completion_tokens": 308,
+        "total_tokens": 1087,
+        "node_id": "node_2",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 2,
+        "ts": "2026-05-11T03:14:01.464923+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 41.9219,
+        "prompt_tokens": 4316,
+        "completion_tokens": 2568,
+        "total_tokens": 6884,
+        "node_id": "node_1",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 3,
+        "ts": "2026-05-11T03:14:07.024850+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 45.6943,
+        "prompt_tokens": 5119,
+        "completion_tokens": 2872,
+        "total_tokens": 7991,
+        "node_id": "node_3",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 4,
+        "ts": "2026-05-11T03:14:10.423923+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 3.375,
+        "prompt_tokens": 1347,
+        "completion_tokens": 159,
+        "total_tokens": 1506,
+        "node_id": "node_2",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 5,
+        "ts": "2026-05-11T03:14:17.977405+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 10.9308,
+        "prompt_tokens": 2192,
+        "completion_tokens": 657,
+        "total_tokens": 2849,
+        "node_id": "node_1",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 6,
+        "ts": "2026-05-11T03:15:06.576844+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 13.3629,
+        "prompt_tokens": 2736,
+        "completion_tokens": 689,
+        "total_tokens": 3425,
+        "node_id": "node_3",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 7,
+        "ts": "2026-05-11T03:15:33.581016+00:00",
+        "module": "module5",
+        "purpose": "graph_delivery",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 7.6039,
+        "prompt_tokens": 3769,
+        "completion_tokens": 378,
+        "total_tokens": 4147,
+        "node_id": null,
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": 0,
+        "trigger": null
+      }
+    ],
+    "_next_seq": 8,
+    "_e2e_perf_t0": 2376194.6501026
+  }
+}

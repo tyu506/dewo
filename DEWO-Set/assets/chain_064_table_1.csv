@@ -1,0 +1,4 @@
+Plan,Price (per user/month),Core Features,Advanced Features,Support Level
+Basic,$10,"Task Management, Basic Reporting",-,Community Forum
+Pro,$25,"All Basic Features, Custom Workflows, API Access",Advanced Analytics,Email & Chat
+Enterprise,Custom Quote,"All Pro Features, Single Sign-On (SSO), Audit Logs","Custom Integrations, SLA Guarantee","Dedicated Account Manager, 24/7 Phone Support"

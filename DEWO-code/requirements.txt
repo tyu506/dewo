@@ -1,0 +1,37 @@
+# DEWO-code — Python dependencies
+# Versions aligned with conda env `research1` (Research_Topic_1) where applicable.
+# Install: pip install -r requirements.txt
+#
+# Python: 3.12 recommended (matches research1).
+
+# --- Orchestration & LLM ---
+langgraph==1.1.6
+langgraph-checkpoint==4.0.1
+langchain-core==1.2.26
+langchain-litellm==0.6.4
+langchain-community==0.4.1
+litellm==1.81.16
+langsmith==0.7.26
+
+# --- Hugging Face Hub / inference client (hf_clients.py, tool_hf.py) ---
+huggingface-hub==0.36.2
+
+# --- Tool decorator & multimodal helpers ---
+smolagents==1.24.0
+
+# --- Typing ---
+typing-extensions==4.15.0
+
+# --- Media / table IO (optional code paths; install for full fidelity) ---
+pillow==12.1.1
+openpyxl==3.1.5
+
+# --- HTTP (explicit pins common with Hub / retries) ---
+httpx==0.28.1
+requests==2.32.5
+urllib3==2.6.3
+
+# --- Often pulled transitively; pin for reproducibility with research1 ---
+pydantic==2.12.5
+tenacity==9.1.4
+tiktoken==0.12.0

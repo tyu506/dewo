@@ -1,0 +1,6 @@
+Order_ID,Status,Customer_Name,Order_Date,Estimated_Delivery
+FS-1001,Shipped,Alice Johnson,2023-10-15,2023-10-20
+FS-1002,Delivered,Bob Smith,2023-10-16,2023-10-21
+FS-1003,Processing,Carol Davis,2023-10-17,2023-10-22
+FS-1004,Cancelled,David Wilson,2023-10-18,2023-10-23
+FS-1005,Shipped,Eva Brown,2023-10-19,2023-10-24

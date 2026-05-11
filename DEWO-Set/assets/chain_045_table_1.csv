@@ -1,0 +1,5 @@
+Plan,Refund Window (days),Conditions
+Basic,7,Unused credits only
+Plus,14,"Any reason, full refund"
+Pro,30,Pro-rated after 7 days
+Enterprise,60,Contract negotiation

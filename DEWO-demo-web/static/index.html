@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DEWO 流水线演示</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <header class="hero">
+        <h1>DEWO 交互演示</h1>
+        <p class="sub">
+          流式展示 <code>DEWO-code/run.py</code> 终端输出：模块 1→5、Binder 修参、推理与最终结果（与 CLI 一致）。
+        </p>
+      </header>
+
+      <section class="presets" id="presets">
+        <h2>示例数据</h2>
+        <p class="hint">数据来自 <code>DEWO-Set/demo_data.jsonl</code>。运行前请配置控制器 LLM 与 <code>HF_TOKEN</code>。</p>
+        <div class="preset-grid" id="presetGrid"></div>
+      </section>
+
+      <section class="controls">
+        <button type="button" id="btnRun" class="primary" disabled>请先选择示例</button>
+        <button type="button" id="btnStop" class="ghost" disabled>停止查看（断开流）</button>
+        <span id="runStatus" class="badge idle">就绪</span>
+      </section>
+
+      <div class="split">
+        <section class="panel log-panel">
+          <div class="panel-head">
+            <h2>实时日志</h2>
+            <label class="chk"><input type="checkbox" id="autoScroll" checked /> 自动滚动</label>
+          </div>
+          <pre id="log" class="log" aria-live="polite"></pre>
+        </section>
+        <section class="panel result-panel">
+          <div class="panel-head">
+            <h2>最终结果</h2>
+            <span class="hint">从日志中解析 <code>final_result</code> 段落</span>
+          </div>
+          <pre id="finalResult" class="result">（运行结束后显示）</pre>
+        </section>
+      </div>
+
+      <footer class="foot">
+        <span>仅用于本地展示；子进程工作目录为 <code>DEWO-code/</code>。</span>
+      </footer>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

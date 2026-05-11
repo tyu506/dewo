@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-05-11T03:01:04.667303+00:00",
+  "Executed": false,
+  "task_success": false,
+  "e2e_success": false,
+  "checks": {
+    "MC1_Executed": false,
+    "MC2_NonEmpty": false,
+    "MC3_MachineDecodable": false,
+    "MC4_HardFormat": true
+  },
+  "run_id": "dewo_test_1_fcb3245d",
+  "sample_id": "req_graph_000021",
+  "crash": {
+    "exception_type": "ValueError",
+    "message": "解析 LLM 返回的 JSON 失败: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\Project\\YTY\\DEWO\\DEWO-code\\app\\agent\\parser.py\", line 367, in _parse_dag_json\n    obj = _load_json_from_llm_text(text)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Project\\YTY\\DEWO\\DEWO-code\\app\\agent\\parser.py\", line 95, in _load_json_from_llm_text\n    obj, _ = decoder.raw_decode(s[start:])\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\json\\decoder.py\", line 353, in raw_decode\n    obj, end = self.scan_once(s, idx)\n               ^^^^^^^^^^^^^^^^^^^^^^\njson.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"D:\\Project\\YTY\\DEWO\\DEWO-code\\run.py\", line 223, in _run_dewo_graph_streaming\n    for chunk in runnable.stream(state_in, stream_mode=\"values\"):\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langgraph\\pregel\\main.py\", line 2736, in stream\n    for _ in runner.tick(\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langgraph\\pregel\\_runner.py\", line 167, in tick\n    run_with_retry(\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langgraph\\pregel\\_retry.py\", line 126, in run_with_retry\n    return task.proc.invoke(task.input, config)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langgraph\\_internal\\_runnable.py\", line 656, in invoke\n    input = context.run(step.invoke, input, config, **kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Anaconda\\envs\\research1\\Lib\\site-packages\\langgraph\\_internal\\_runnable.py\", line 400, in invoke\n    ret = self.func(*args, **kwargs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Project\\YTY\\DEWO\\DEWO-code\\app\\agent\\parser.py\", line 435, in parse_and_contract\n    dag = _parse_dag_json(raw_json)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Project\\YTY\\DEWO\\DEWO-code\\app\\agent\\parser.py\", line 369, in _parse_dag_json\n    raise ValueError(f\"解析 LLM 返回的 JSON 失败: {e}\") from e\nValueError: 解析 LLM 返回的 JSON 失败: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)\nDuring task with name 'parse_and_contract' and id '626a5bbb-a273-1e7f-71af-1731183bc90c'\n",
+    "inferred_module": "module1",
+    "inferred_phase": "parse_and_contract",
+    "hint_file": "parser.py"
+  },
+  "usage": null,
+  "final_dag_result": null,
+  "final_result": null,
+  "graph_final_message": null,
+  "graph_eval_summary": null,
+  "datasets_meta": {
+    "split": "test",
+    "difficulty": "complex",
+    "task": [
+      "image_text_to_text",
+      "object_detection",
+      "summarization"
+    ],
+    "expected_output_type": "text"
+  }
+}

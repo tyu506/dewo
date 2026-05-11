@@ -1,0 +1,4 @@
+plan,refund_window_days,notes
+Basic,7,No refunds after 7 days
+Plus,14,Refunds allowed within 14 days of purchase
+Pro,30,Refunds allowed within 30 days of purchase

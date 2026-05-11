@@ -1,0 +1,704 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-05-11T03:18:55.248062+00:00",
+  "Executed": true,
+  "task_success": true,
+  "e2e_success": true,
+  "checks": {
+    "MC1_Executed": true,
+    "MC2_NonEmpty": true,
+    "MC3_MachineDecodable": true,
+    "MC4_HardFormat": true
+  },
+  "run_id": "dewo_test_1_c6493c81",
+  "sample_id": "req_graph_000021",
+  "crash": null,
+  "usage": {
+    "schema_version": 4,
+    "updated_at": "2026-05-11T03:18:55.203420+00:00",
+    "totals": {
+      "wall_sec": 95.1193,
+      "llm": {
+        "calls": 10,
+        "prompt_tokens": 22443,
+        "completion_tokens": 4563,
+        "total_tokens": 27006
+      }
+    },
+    "pass_counters": {
+      "module1": 1,
+      "module2": 1,
+      "module3": 1
+    },
+    "modules": {
+      "module1": {
+        "wall_sec": 6.4187,
+        "llm": {
+          "calls": 1,
+          "prompt_tokens": 1493,
+          "completion_tokens": 316,
+          "total_tokens": 1809
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 6.4187,
+            "llm": {
+              "calls": 1,
+              "prompt_tokens": 1493,
+              "completion_tokens": 316,
+              "total_tokens": 1809
+            }
+          }
+        ]
+      },
+      "module2": {
+        "wall_sec": 35.28,
+        "llm": {
+          "calls": 3,
+          "prompt_tokens": 9866,
+          "completion_tokens": 3212,
+          "total_tokens": 13078
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 35.28,
+            "llm": {
+              "calls": 3,
+              "prompt_tokens": 9866,
+              "completion_tokens": 3212,
+              "total_tokens": 13078
+            }
+          }
+        ]
+      },
+      "module3": {
+        "wall_sec": 46.7168,
+        "llm": {
+          "calls": 5,
+          "prompt_tokens": 8452,
+          "completion_tokens": 716,
+          "total_tokens": 9168
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 46.7168,
+            "llm": {
+              "calls": 5,
+              "prompt_tokens": 8452,
+              "completion_tokens": 716,
+              "total_tokens": 9168
+            },
+            "execute_only_nodes": null,
+            "nodes": {
+              "node_2": {
+                "wall_sec": 20.6525,
+                "infer_attempts": 2,
+                "llm": {
+                  "calls": 2,
+                  "prompt_tokens": 2900,
+                  "completion_tokens": 182,
+                  "total_tokens": 3082
+                }
+              },
+              "node_1": {
+                "wall_sec": 11.9368,
+                "infer_attempts": 2,
+                "llm": {
+                  "calls": 2,
+                  "prompt_tokens": 3027,
+                  "completion_tokens": 179,
+                  "total_tokens": 3206
+                }
+              },
+              "node_3": {
+                "wall_sec": 26.0424,
+                "infer_attempts": 1,
+                "llm": {
+                  "calls": 1,
+                  "prompt_tokens": 2525,
+                  "completion_tokens": 355,
+                  "total_tokens": 2880
+                }
+              }
+            }
+          }
+        ]
+      },
+      "module5": {
+        "wall_sec": 6.7022,
+        "llm": {
+          "calls": 1,
+          "prompt_tokens": 2632,
+          "completion_tokens": 319,
+          "total_tokens": 2951
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wall_sec": 6.7022,
+            "llm": {
+              "calls": 1,
+              "prompt_tokens": 2632,
+              "completion_tokens": 319,
+              "total_tokens": 2951
+            },
+            "graph_eval": {
+              "is_satisfied": true,
+              "graph_error_type": "none"
+            }
+          }
+        ]
+      }
+    },
+    "llm_events": [
+      {
+        "seq": 0,
+        "ts": "2026-05-11T03:17:26.499307+00:00",
+        "module": "module1",
+        "purpose": "dag_plan",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 6.417,
+        "prompt_tokens": 1493,
+        "completion_tokens": 316,
+        "total_tokens": 1809,
+        "node_id": null,
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 1,
+        "ts": "2026-05-11T03:17:32.063762+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 2.6302,
+        "prompt_tokens": 792,
+        "completion_tokens": 114,
+        "total_tokens": 906,
+        "node_id": "node_2",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 2,
+        "ts": "2026-05-11T03:17:56.175425+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 24.356,
+        "prompt_tokens": 3965,
+        "completion_tokens": 1385,
+        "total_tokens": 5350,
+        "node_id": "node_1",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 3,
+        "ts": "2026-05-11T03:18:01.781041+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 29.616,
+        "prompt_tokens": 5109,
+        "completion_tokens": 1713,
+        "total_tokens": 6822,
+        "node_id": "node_3",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 4,
+        "ts": "2026-05-11T03:18:03.819855+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 2.0167,
+        "prompt_tokens": 1360,
+        "completion_tokens": 77,
+        "total_tokens": 1437,
+        "node_id": "node_2",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 5,
+        "ts": "2026-05-11T03:18:03.911327+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 2.1095,
+        "prompt_tokens": 1420,
+        "completion_tokens": 80,
+        "total_tokens": 1500,
+        "node_id": "node_1",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 6,
+        "ts": "2026-05-11T03:18:10.932332+00:00",
+        "module": "module3",
+        "purpose": "binder_repair",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 2.1228,
+        "prompt_tokens": 1607,
+        "completion_tokens": 99,
+        "total_tokens": 1706,
+        "node_id": "node_1",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 7,
+        "ts": "2026-05-11T03:18:17.891482+00:00",
+        "module": "module3",
+        "purpose": "binder_repair",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 2.7345,
+        "prompt_tokens": 1540,
+        "completion_tokens": 105,
+        "total_tokens": 1645,
+        "node_id": "node_2",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 8,
+        "ts": "2026-05-11T03:18:28.987558+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 6.5306,
+        "prompt_tokens": 2525,
+        "completion_tokens": 355,
+        "total_tokens": 2880,
+        "node_id": "node_3",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 9,
+        "ts": "2026-05-11T03:18:55.203420+00:00",
+        "module": "module5",
+        "purpose": "graph_delivery",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 6.7013,
+        "prompt_tokens": 2632,
+        "completion_tokens": 319,
+        "total_tokens": 2951,
+        "node_id": null,
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": 0,
+        "trigger": null
+      }
+    ],
+    "_next_seq": 10,
+    "_e2e_perf_t0": 2376458.8267514
+  },
+  "final_dag_result": {
+    "graph_type": "DAG",
+    "edges": [
+      {
+        "source": "node_1",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      },
+      {
+        "source": "node_2",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      }
+    ],
+    "task_specs": {
+      "image_classification": {
+        "task_type": "image_classification",
+        "pipeline_tag": "image-classification",
+        "mapped_method": "image_classification",
+        "required_args": [
+          "image"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "image",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.Union[bytes, typing.BinaryIO, str, pathlib.Path, ForwardRef('Image'), bytearray, memoryview]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "function_to_apply",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[ForwardRef('ImageClassificationOutputTransform')]",
+            "required": false,
+            "allowed_values": [
+              "sigmoid",
+              "softmax",
+              "none"
+            ]
+          },
+          {
+            "name": "top_k",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          }
+        ]
+      },
+      "object_detection": {
+        "task_type": "object_detection",
+        "pipeline_tag": "object-detection",
+        "mapped_method": "object_detection",
+        "required_args": [
+          "image"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "image",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.Union[bytes, typing.BinaryIO, str, pathlib.Path, ForwardRef('Image'), bytearray, memoryview]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "threshold",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          }
+        ]
+      },
+      "text_generation": {
+        "task_type": "text_generation",
+        "pipeline_tag": "text-generation",
+        "mapped_method": "chat_completion",
+        "required_args": [
+          "messages"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "messages",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.List[typing.Union[typing.Dict, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputMessage]]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "stream",
+            "kind": "KEYWORD_ONLY",
+            "default": "False",
+            "annotation": "<class 'bool'>",
+            "required": false
+          },
+          {
+            "name": "frequency_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "logit_bias",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[float]]",
+            "required": false
+          },
+          {
+            "name": "logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[bool]",
+            "required": false
+          },
+          {
+            "name": "max_tokens",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "n",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "presence_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "response_format",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatText, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONSchema, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONObject, NoneType]",
+            "required": false
+          },
+          {
+            "name": "seed",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "stop",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[str]]",
+            "required": false
+          },
+          {
+            "name": "stream_options",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputStreamOptions]",
+            "required": false
+          },
+          {
+            "name": "temperature",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "tool_choice",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputToolChoiceClass, ForwardRef('ChatCompletionInputToolChoiceEnum'), NoneType]",
+            "required": false,
+            "allowed_values": [
+              "auto",
+              "none",
+              "required"
+            ]
+          },
+          {
+            "name": "tool_prompt",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "tools",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputTool]]",
+            "required": false
+          },
+          {
+            "name": "top_logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "top_p",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "extra_body",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.Dict]",
+            "required": false
+          }
+        ]
+      }
+    },
+    "nodes": [
+      {
+        "node_id": "node_1",
+        "task": [
+          "image_classification"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图像 'graph_021_image_1.png' 进行整体场景描述，输出自然语言描述文本，供下游合并节点使用。",
+        "node_output": [
+          {
+            "label": "normal",
+            "score": 0.9998107552528381
+          },
+          {
+            "label": "nsfw",
+            "score": 0.00018925615586340427
+          }
+        ]
+      },
+      {
+        "node_id": "node_2",
+        "task": [
+          "object_detection"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图像 'graph_021_image_1.png' 进行目标检测，输出检测到的物体列表及其标签，供下游合并节点使用。",
+        "node_output": [
+          {
+            "box": {
+              "xmax": 1148,
+              "xmin": 380,
+              "ymax": 1326,
+              "ymin": 908
+            },
+            "label": "bench",
+            "score": 0.9985270500183105
+          },
+          {
+            "box": {
+              "xmax": 1650,
+              "xmin": 1110,
+              "ymax": 1413,
+              "ymin": 961
+            },
+            "label": "dog",
+            "score": 0.9994999170303345
+          },
+          {
+            "box": {
+              "xmax": 2568,
+              "xmin": 2384,
+              "ymax": 1166,
+              "ymin": 1017
+            },
+            "label": "bench",
+            "score": 0.9968650937080383
+          },
+          {
+            "box": {
+              "xmax": 2195,
+              "xmin": 1705,
+              "ymax": 1434,
+              "ymin": 668
+            },
+            "label": "bicycle",
+            "score": 0.9992384910583496
+          },
+          {
+            "box": {
+              "xmax": 2216,
+              "xmin": 1703,
+              "ymax": 1141,
+              "ymin": 178
+            },
+            "label": "person",
+            "score": 0.9978468418121338
+          }
+        ]
+      },
+      {
+        "node_id": "node_3",
+        "task": [
+          "text_generation"
+        ],
+        "language": "en",
+        "requirement_spec": "将 node_1 的场景描述和 node_2 的检测结果合并为结构化英文报告，包含 'Scene Description' 和 'Detected Objects' 两个部分。输出纯文本，不包含 markdown 格式。",
+        "node_output": {
+          "choices": [
+            {
+              "finish_reason": "length",
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "reasoning": null,
+                "tool_call_id": null,
+                "tool_calls": null
+              },
+              "logprobs": null
+            }
+          ],
+          "created": 1778469511,
+          "id": "c52caf20617639131ec42e89e1e6ec05",
+          "model": "deepseek/deepseek-v4-pro",
+          "system_fingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+          "usage": {
+            "completion_tokens": 500,
+            "prompt_tokens": 263,
+            "total_tokens": 763
+          },
+          "object": "chat.completion"
+        }
+      }
+    ]
+  },
+  "final_result": "Scene Description:\nThe image is classified as 'normal' with a confidence of 0.9998, indicating a typical, non-explicit scene.\n\nDetected Objects:\n- bench (confidence: 0.9985) at [380, 908, 1148, 1326]\n- dog (confidence: 0.9995) at [1110, 961, 1650, 1413]\n- bench (confidence: 0.9969) at [2384, 1017, 2568, 1166]\n- bicycle (confidence: 0.9992) at [1705, 668, 2195, 1434]\n- person (confidence: 0.9978) at [1703, 178, 2216, 1141]",
+  "graph_final_message": null,
+  "graph_eval_summary": {
+    "is_satisfied": true,
+    "graph_error_type": "none",
+    "format_requirement_detected": true
+  },
+  "datasets_meta": {
+    "split": "test",
+    "difficulty": "complex",
+    "task": [
+      "image_text_to_text",
+      "object_detection",
+      "summarization"
+    ],
+    "expected_output_type": "text"
+  }
+}

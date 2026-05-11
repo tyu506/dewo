@@ -1,0 +1,5 @@
+order_id,status,last_update_days_ago
+FS-1001,delivered,1
+FS-1002,in_transit,3
+FS-1003,processing,5
+FS-1004,cancelled,2

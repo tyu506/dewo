@@ -1,0 +1,1349 @@
+{
+  "run_id": "dewo_test_1_c6493c81",
+  "sample_id": "req_graph_000021",
+  "query": "I have an image named 'graph_021_image_1.png'. First, describe the overall scene in the image. At the same time, detect and list the main objects present in the image with their labels. Finally, combine both results into a structured English report with two sections: 'Scene Description' and 'Detected Objects'.",
+  "inputs": {
+    "image": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png"
+  },
+  "inputs_meta": {
+    "image": {
+      "path": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png",
+      "exists": true,
+      "file_kind": "image",
+      "suffix": ".png",
+      "mime": "image/png",
+      "size_bytes": 5552349,
+      "mtime_utc": "2026-04-13T09:06:23.332945+00:00",
+      "meta": {
+        "format": "PNG",
+        "width": 2730,
+        "height": 1535,
+        "mode": "RGB"
+      }
+    }
+  },
+  "datasets_meta": {
+    "split": "test",
+    "difficulty": "complex",
+    "task": [
+      "image_text_to_text",
+      "object_detection",
+      "summarization"
+    ],
+    "expected_output_type": "text"
+  },
+  "infer_assets_dir": "D:\\Project\\YTY\\DEWO\\DEWO-code\\outputs\\req_graph_000021_20260511_111720",
+  "dag_plan": {
+    "graph_type": "DAG",
+    "nodes": [
+      {
+        "node_id": "node_1",
+        "task": [
+          "image_classification"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图像 'graph_021_image_1.png' 进行整体场景描述，输出自然语言描述文本，供下游合并节点使用。"
+      },
+      {
+        "node_id": "node_2",
+        "task": [
+          "object_detection"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图像 'graph_021_image_1.png' 进行目标检测，输出检测到的物体列表及其标签，供下游合并节点使用。"
+      },
+      {
+        "node_id": "node_3",
+        "task": [
+          "text_generation"
+        ],
+        "language": "en",
+        "requirement_spec": "将 node_1 的场景描述和 node_2 的检测结果合并为结构化英文报告，包含 'Scene Description' 和 'Detected Objects' 两个部分。输出纯文本，不包含 markdown 格式。"
+      }
+    ],
+    "edges": [
+      {
+        "source": "node_1",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      },
+      {
+        "source": "node_2",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      }
+    ],
+    "task_specs": {
+      "image_classification": {
+        "task_type": "image_classification",
+        "pipeline_tag": "image-classification",
+        "mapped_method": "image_classification",
+        "required_args": [
+          "image"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "image",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.Union[bytes, typing.BinaryIO, str, pathlib.Path, ForwardRef('Image'), bytearray, memoryview]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "function_to_apply",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[ForwardRef('ImageClassificationOutputTransform')]",
+            "required": false,
+            "allowed_values": [
+              "sigmoid",
+              "softmax",
+              "none"
+            ]
+          },
+          {
+            "name": "top_k",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          }
+        ]
+      },
+      "object_detection": {
+        "task_type": "object_detection",
+        "pipeline_tag": "object-detection",
+        "mapped_method": "object_detection",
+        "required_args": [
+          "image"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "image",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.Union[bytes, typing.BinaryIO, str, pathlib.Path, ForwardRef('Image'), bytearray, memoryview]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "threshold",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          }
+        ]
+      },
+      "text_generation": {
+        "task_type": "text_generation",
+        "pipeline_tag": "text-generation",
+        "mapped_method": "chat_completion",
+        "required_args": [
+          "messages"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "messages",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.List[typing.Union[typing.Dict, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputMessage]]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "stream",
+            "kind": "KEYWORD_ONLY",
+            "default": "False",
+            "annotation": "<class 'bool'>",
+            "required": false
+          },
+          {
+            "name": "frequency_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "logit_bias",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[float]]",
+            "required": false
+          },
+          {
+            "name": "logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[bool]",
+            "required": false
+          },
+          {
+            "name": "max_tokens",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "n",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "presence_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "response_format",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatText, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONSchema, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONObject, NoneType]",
+            "required": false
+          },
+          {
+            "name": "seed",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "stop",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[str]]",
+            "required": false
+          },
+          {
+            "name": "stream_options",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputStreamOptions]",
+            "required": false
+          },
+          {
+            "name": "temperature",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "tool_choice",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputToolChoiceClass, ForwardRef('ChatCompletionInputToolChoiceEnum'), NoneType]",
+            "required": false,
+            "allowed_values": [
+              "auto",
+              "none",
+              "required"
+            ]
+          },
+          {
+            "name": "tool_prompt",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "tools",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputTool]]",
+            "required": false
+          },
+          {
+            "name": "top_logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "top_p",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "extra_body",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.Dict]",
+            "required": false
+          }
+        ]
+      }
+    }
+  },
+  "candidate_frontier": {},
+  "binding_plan": {
+    "by_node_id": {
+      "node_2": {
+        "selected_from_task_type": "object_detection",
+        "best": {
+          "model_id": "facebook/detr-resnet-50",
+          "prior_score": 92.25,
+          "reason": "DETR模型专为目标检测设计，ResNet-50骨干网络性能良好，完全适配任务需求，但精度略低于101版本。"
+        },
+        "backups": [
+          {
+            "model_id": "facebook/detr-resnet-101",
+            "prior_score": 59.0,
+            "reason": "DETR模型专为目标检测设计，ResNet-101骨干网络更深，精度更高，完全适配任务需求。"
+          }
+        ]
+      },
+      "node_1": {
+        "selected_from_task_type": "image_classification",
+        "best": {
+          "model_id": "Falconsai/nsfw_image_detection",
+          "prior_score": 71.68327500206685,
+          "reason": "专注于NSFW内容检测，与场景描述无关。"
+        },
+        "backups": [
+          {
+            "model_id": "google/vit-base-patch16-224",
+            "prior_score": 70.69824485815069,
+            "reason": "通用图像分类模型，可输出类别标签，但无法生成自然语言描述。"
+          },
+          {
+            "model_id": "dima806/fairface_age_image_detection",
+            "prior_score": 66.55687276587886,
+            "reason": "专注于年龄检测，与场景描述无关。"
+          },
+          {
+            "model_id": "microsoft/resnet-50",
+            "prior_score": 65.62930186113728,
+            "reason": "通用图像分类模型，可输出类别标签，但无法生成自然语言描述。"
+          },
+          {
+            "model_id": "Organika/sdxl-detector",
+            "prior_score": 63.24304135043228,
+            "reason": "专注于SDXL图像检测，非通用场景描述，与任务需求不符。"
+          }
+        ]
+      },
+      "node_3": {
+        "selected_from_task_type": "text_generation",
+        "best": {
+          "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+          "prior_score": 88.10291432064045,
+          "reason": "最新旗舰模型，指令遵循能力强，适合生成结构化英文报告。"
+        },
+        "backups": [
+          {
+            "model_id": "openai/gpt-oss-120b",
+            "prior_score": 82.7151111117344,
+            "reason": "超大参数模型，指令遵循和文本生成能力极强，适合复杂结构化输出。"
+          },
+          {
+            "model_id": "openai/gpt-oss-20b",
+            "prior_score": 82.54675342162042,
+            "reason": "大参数模型，指令遵循能力强，适合结构化英文报告生成。"
+          },
+          {
+            "model_id": "deepseek-ai/DeepSeek-V3.2",
+            "prior_score": 80.25826264053146,
+            "reason": "最新版本，指令遵循能力强，适合结构化英文报告。"
+          },
+          {
+            "model_id": "deepseek-ai/DeepSeek-R1",
+            "prior_score": 80.13211472415466,
+            "reason": "推理能力强，指令遵循好，可生成结构化报告。"
+          }
+        ]
+      }
+    },
+    "meta": {
+      "generated_at": "2026-05-11T03:18:01.782048+00:00"
+    }
+  },
+  "node_outputs": {
+    "node_1": [
+      {
+        "label": "normal",
+        "score": 0.9998107552528381
+      },
+      {
+        "label": "nsfw",
+        "score": 0.00018925615586340427
+      }
+    ],
+    "node_2": [
+      {
+        "box": {
+          "xmax": 1148,
+          "xmin": 380,
+          "ymax": 1326,
+          "ymin": 908
+        },
+        "label": "bench",
+        "score": 0.9985270500183105
+      },
+      {
+        "box": {
+          "xmax": 1650,
+          "xmin": 1110,
+          "ymax": 1413,
+          "ymin": 961
+        },
+        "label": "dog",
+        "score": 0.9994999170303345
+      },
+      {
+        "box": {
+          "xmax": 2568,
+          "xmin": 2384,
+          "ymax": 1166,
+          "ymin": 1017
+        },
+        "label": "bench",
+        "score": 0.9968650937080383
+      },
+      {
+        "box": {
+          "xmax": 2195,
+          "xmin": 1705,
+          "ymax": 1434,
+          "ymin": 668
+        },
+        "label": "bicycle",
+        "score": 0.9992384910583496
+      },
+      {
+        "box": {
+          "xmax": 2216,
+          "xmin": 1703,
+          "ymax": 1141,
+          "ymin": 178
+        },
+        "label": "person",
+        "score": 0.9978468418121338
+      }
+    ],
+    "node_3": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "reasoning": null,
+            "tool_call_id": null,
+            "tool_calls": null
+          },
+          "logprobs": null
+        }
+      ],
+      "created": 1778469511,
+      "id": "c52caf20617639131ec42e89e1e6ec05",
+      "model": "deepseek/deepseek-v4-pro",
+      "system_fingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+      "usage": {
+        "completion_tokens": 500,
+        "prompt_tokens": 263,
+        "total_tokens": 763
+      },
+      "object": "chat.completion"
+    }
+  },
+  "execution_trace": [
+    {
+      "node_id": "node_1",
+      "attempt": 1,
+      "status": "error",
+      "phase": "executed",
+      "failure_class": "param_build",
+      "repair_action": "none",
+      "infer_call": {
+        "task_type": "image_classification",
+        "model": "Falconsai/nsfw_image_detection",
+        "args": {
+          "task_type": "image_classification",
+          "model": "Falconsai/nsfw_image_detection",
+          "inputs": {
+            "image": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png"
+          },
+          "parameters": {
+            "top_k": "5"
+          },
+          "parameters_extra_json": "{}",
+          "timeout_s": 120.0
+        }
+      },
+      "binder_notes": "使用global_inputs中的图像路径作为inputs，设置top_k=5以获取主要场景标签，供下游合并节点使用。",
+      "latency_sec": 4.8849,
+      "error": "BadRequestError: (Request ID: Root=1-6a014a6e-514677ee4941f6f173abaa2a;42f318a9-29c7-4dba-a531-0f4906753a0d)\n\nBad request:\n'>' not supported between instances of 'str' and 'int'"
+    },
+    {
+      "node_id": "node_1",
+      "attempt": 1,
+      "status": "ok",
+      "phase": "executed",
+      "failure_class": null,
+      "repair_action": "param_fix",
+      "infer_call": {
+        "task_type": "image_classification",
+        "model": "Falconsai/nsfw_image_detection",
+        "inputs_preview": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png",
+        "args": {
+          "task_type": "image_classification",
+          "model": "Falconsai/nsfw_image_detection",
+          "inputs": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png",
+          "parameters": {
+            "top_k": 5
+          },
+          "parameters_extra_json": "{}",
+          "timeout_s": 120.0
+        }
+      },
+      "binder_notes": "1. 将inputs从dict改为纯字符串路径，避免参数类型冲突；2. 将parameters中的top_k值从字符串'5'改为整数5，修复'>' not supported between str and int错误。",
+      "latency_sec": 2.8049,
+      "error": null
+    },
+    {
+      "node_id": "node_2",
+      "attempt": 1,
+      "status": "error",
+      "phase": "executed",
+      "failure_class": "param_build",
+      "repair_action": "none",
+      "infer_call": {
+        "task_type": "object_detection",
+        "model": "facebook/detr-resnet-50",
+        "args": {
+          "task_type": "object_detection",
+          "model": "facebook/detr-resnet-50",
+          "inputs": {
+            "image": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png"
+          },
+          "parameters": {
+            "threshold": "0.5"
+          },
+          "parameters_extra_json": "{}",
+          "timeout_s": 120.0
+        }
+      },
+      "binder_notes": "使用global_inputs中的图像路径作为输入，设置默认阈值0.5进行目标检测。",
+      "latency_sec": 11.3252,
+      "error": "BadRequestError: (Request ID: Root=1-6a014a6d-366b76fb3c81830f1566c9ad;0884b9bf-6d9b-4cf0-8fc4-16f8067c2072)\n\nBad request:\n'>' not supported between instances of 'Tensor' and 'str'"
+    },
+    {
+      "node_id": "node_2",
+      "attempt": 1,
+      "status": "ok",
+      "phase": "executed",
+      "failure_class": null,
+      "repair_action": "param_fix",
+      "infer_call": {
+        "task_type": "object_detection",
+        "model": "facebook/detr-resnet-50",
+        "inputs_preview": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png",
+        "args": {
+          "task_type": "object_detection",
+          "model": "facebook/detr-resnet-50",
+          "inputs": "D:\\Project\\YTY\\DEWO\\DEWO-Set\\assets\\graph_021_image_1.png",
+          "parameters": {
+            "threshold": 0.5
+          },
+          "parameters_extra_json": "{}",
+          "timeout_s": 120.0
+        }
+      },
+      "binder_notes": "1. 将inputs从dict改为字符串路径，避免模型内部将路径字符串与Tensor比较时报类型错误。2. 同时将threshold参数值从字符串'0.5'改为浮点数0.5，确保参数类型正确。",
+      "latency_sec": 4.5633,
+      "error": null
+    },
+    {
+      "node_id": "node_3",
+      "attempt": 1,
+      "status": "ok",
+      "phase": "executed",
+      "failure_class": null,
+      "repair_action": "none",
+      "infer_call": {
+        "task_type": "text_generation",
+        "model": "deepseek-ai/DeepSeek-V4-Pro",
+        "inputs_preview": "{'messages': [{'role': 'user', 'content': \"Combine the following information into a structured English report with two sections: 'Scene Description' and 'Detected Objects'. Output plain text without markdown formatting.\\n\\nScene Description (from image classification): The image was classified as 'n",
+        "args": {
+          "task_type": "text_generation",
+          "model": "deepseek-ai/DeepSeek-V4-Pro",
+          "inputs": {
+            "messages": [
+              {
+                "role": "user",
+                "content": "Combine the following information into a structured English report with two sections: 'Scene Description' and 'Detected Objects'. Output plain text without markdown formatting.\n\nScene Description (from image classification): The image was classified as 'normal' with a confidence of 0.9998, and 'nsfw' with a confidence of 0.0002.\n\nDetected Objects (from object detection):\n- bench (confidence 0.9985) at box [xmin:380, ymin:908, xmax:1148, ymax:1326]\n- dog (confidence 0.9995) at box [xmin:1110, ymin:961, xmax:1650, ymax:1413]\n- bench (confidence 0.9969) at box [xmin:2384, ymin:1017, xmax:2568, ymax:1166]\n- bicycle (confidence 0.9992) at box [xmin:1705, ymin:668, xmax:2195, ymax:1434]\n- person (confidence 0.9978) at box [xmin:1703, ymin:178, xmax:2216, ymax:1141]"
+              }
+            ]
+          },
+          "parameters": {
+            "max_tokens": 500,
+            "temperature": 0.7
+          },
+          "parameters_extra_json": "{}",
+          "timeout_s": 120.0
+        }
+      },
+      "binder_notes": "将上游节点node_1（图像分类）和node_2（目标检测）的结果合并为结构化英文报告提示词，作为text_generation的输入。",
+      "latency_sec": 19.5001,
+      "error": null
+    }
+  ],
+  "final_output_candidate": {
+    "from_node_id": "node_3",
+    "output": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "reasoning": null,
+            "tool_call_id": null,
+            "tool_calls": null
+          },
+          "logprobs": null
+        }
+      ],
+      "created": 1778469511,
+      "id": "c52caf20617639131ec42e89e1e6ec05",
+      "model": "deepseek/deepseek-v4-pro",
+      "system_fingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+      "usage": {
+        "completion_tokens": 500,
+        "prompt_tokens": 263,
+        "total_tokens": 763
+      },
+      "object": "chat.completion"
+    },
+    "output_type": null
+  },
+  "final_dag_result": {
+    "graph_type": "DAG",
+    "edges": [
+      {
+        "source": "node_1",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      },
+      {
+        "source": "node_2",
+        "target": "node_3",
+        "edge_type": "data_dep"
+      }
+    ],
+    "task_specs": {
+      "image_classification": {
+        "task_type": "image_classification",
+        "pipeline_tag": "image-classification",
+        "mapped_method": "image_classification",
+        "required_args": [
+          "image"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "image",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.Union[bytes, typing.BinaryIO, str, pathlib.Path, ForwardRef('Image'), bytearray, memoryview]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "function_to_apply",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[ForwardRef('ImageClassificationOutputTransform')]",
+            "required": false,
+            "allowed_values": [
+              "sigmoid",
+              "softmax",
+              "none"
+            ]
+          },
+          {
+            "name": "top_k",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          }
+        ]
+      },
+      "object_detection": {
+        "task_type": "object_detection",
+        "pipeline_tag": "object-detection",
+        "mapped_method": "object_detection",
+        "required_args": [
+          "image"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "image",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.Union[bytes, typing.BinaryIO, str, pathlib.Path, ForwardRef('Image'), bytearray, memoryview]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "threshold",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          }
+        ]
+      },
+      "text_generation": {
+        "task_type": "text_generation",
+        "pipeline_tag": "text-generation",
+        "mapped_method": "chat_completion",
+        "required_args": [
+          "messages"
+        ],
+        "output_type_hint": "text",
+        "parameters": [
+          {
+            "name": "messages",
+            "kind": "POSITIONAL_OR_KEYWORD",
+            "default": null,
+            "annotation": "typing.List[typing.Union[typing.Dict, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputMessage]]",
+            "required": true
+          },
+          {
+            "name": "model",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "stream",
+            "kind": "KEYWORD_ONLY",
+            "default": "False",
+            "annotation": "<class 'bool'>",
+            "required": false
+          },
+          {
+            "name": "frequency_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "logit_bias",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[float]]",
+            "required": false
+          },
+          {
+            "name": "logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[bool]",
+            "required": false
+          },
+          {
+            "name": "max_tokens",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "n",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "presence_penalty",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "response_format",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatText, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONSchema, huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputResponseFormatJSONObject, NoneType]",
+            "required": false
+          },
+          {
+            "name": "seed",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "stop",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[str]]",
+            "required": false
+          },
+          {
+            "name": "stream_options",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputStreamOptions]",
+            "required": false
+          },
+          {
+            "name": "temperature",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "tool_choice",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Union[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputToolChoiceClass, ForwardRef('ChatCompletionInputToolChoiceEnum'), NoneType]",
+            "required": false,
+            "allowed_values": [
+              "auto",
+              "none",
+              "required"
+            ]
+          },
+          {
+            "name": "tool_prompt",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[str]",
+            "required": false
+          },
+          {
+            "name": "tools",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.List[huggingface_hub.inference._generated.types.chat_completion.ChatCompletionInputTool]]",
+            "required": false
+          },
+          {
+            "name": "top_logprobs",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[int]",
+            "required": false
+          },
+          {
+            "name": "top_p",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[float]",
+            "required": false
+          },
+          {
+            "name": "extra_body",
+            "kind": "KEYWORD_ONLY",
+            "default": "None",
+            "annotation": "typing.Optional[typing.Dict]",
+            "required": false
+          }
+        ]
+      }
+    },
+    "nodes": [
+      {
+        "node_id": "node_1",
+        "task": [
+          "image_classification"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图像 'graph_021_image_1.png' 进行整体场景描述，输出自然语言描述文本，供下游合并节点使用。",
+        "node_output": [
+          {
+            "label": "normal",
+            "score": 0.9998107552528381
+          },
+          {
+            "label": "nsfw",
+            "score": 0.00018925615586340427
+          }
+        ]
+      },
+      {
+        "node_id": "node_2",
+        "task": [
+          "object_detection"
+        ],
+        "language": "en",
+        "requirement_spec": "对输入图像 'graph_021_image_1.png' 进行目标检测，输出检测到的物体列表及其标签，供下游合并节点使用。",
+        "node_output": [
+          {
+            "box": {
+              "xmax": 1148,
+              "xmin": 380,
+              "ymax": 1326,
+              "ymin": 908
+            },
+            "label": "bench",
+            "score": 0.9985270500183105
+          },
+          {
+            "box": {
+              "xmax": 1650,
+              "xmin": 1110,
+              "ymax": 1413,
+              "ymin": 961
+            },
+            "label": "dog",
+            "score": 0.9994999170303345
+          },
+          {
+            "box": {
+              "xmax": 2568,
+              "xmin": 2384,
+              "ymax": 1166,
+              "ymin": 1017
+            },
+            "label": "bench",
+            "score": 0.9968650937080383
+          },
+          {
+            "box": {
+              "xmax": 2195,
+              "xmin": 1705,
+              "ymax": 1434,
+              "ymin": 668
+            },
+            "label": "bicycle",
+            "score": 0.9992384910583496
+          },
+          {
+            "box": {
+              "xmax": 2216,
+              "xmin": 1703,
+              "ymax": 1141,
+              "ymin": 178
+            },
+            "label": "person",
+            "score": 0.9978468418121338
+          }
+        ]
+      },
+      {
+        "node_id": "node_3",
+        "task": [
+          "text_generation"
+        ],
+        "language": "en",
+        "requirement_spec": "将 node_1 的场景描述和 node_2 的检测结果合并为结构化英文报告，包含 'Scene Description' 和 'Detected Objects' 两个部分。输出纯文本，不包含 markdown 格式。",
+        "node_output": {
+          "choices": [
+            {
+              "finish_reason": "length",
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "",
+                "reasoning": null,
+                "tool_call_id": null,
+                "tool_calls": null
+              },
+              "logprobs": null
+            }
+          ],
+          "created": 1778469511,
+          "id": "c52caf20617639131ec42e89e1e6ec05",
+          "model": "deepseek/deepseek-v4-pro",
+          "system_fingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+          "usage": {
+            "completion_tokens": 500,
+            "prompt_tokens": 263,
+            "total_tokens": 763
+          },
+          "object": "chat.completion"
+        }
+      }
+    ]
+  },
+  "graph_eval": {
+    "format_requirement_detected": true,
+    "final_result": "Scene Description:\nThe image is classified as 'normal' with a confidence of 0.9998, indicating a typical, non-explicit scene.\n\nDetected Objects:\n- bench (confidence: 0.9985) at [380, 908, 1148, 1326]\n- dog (confidence: 0.9995) at [1110, 961, 1650, 1413]\n- bench (confidence: 0.9969) at [2384, 1017, 2568, 1166]\n- bicycle (confidence: 0.9992) at [1705, 668, 2195, 1434]\n- person (confidence: 0.9978) at [1703, 178, 2216, 1141]",
+    "reason": "The user explicitly requested a structured English report with two sections: 'Scene Description' and 'Detected Objects'. The DAG executed three nodes: node_1 performed image classification (output: label 'normal' with score 0.9998), node_2 performed object detection (output: 5 objects with labels and bounding boxes), and node_3 was a text generation node intended to combine results but produced an empty content due to length limit. Therefore, the final result is manually assembled from node_1 and node_2 outputs to meet the user's format requirement.",
+    "e2e": true,
+    "is_satisfied": true,
+    "graph_error_type": "none"
+  },
+  "graph_repair_trace": [
+    {
+      "round": 0,
+      "graph_eval": {
+        "format_requirement_detected": true,
+        "final_result": "Scene Description:\nThe image is classified as 'normal' with a confidence of 0.9998, indicating a typical, non-explicit scene.\n\nDetected Objects:\n- bench (confidence: 0.9985) at [380, 908, 1148, 1326]\n- dog (confidence: 0.9995) at [1110, 961, 1650, 1413]\n- bench (confidence: 0.9969) at [2384, 1017, 2568, 1166]\n- bicycle (confidence: 0.9992) at [1705, 668, 2195, 1434]\n- person (confidence: 0.9978) at [1703, 178, 2216, 1141]",
+        "reason": "The user explicitly requested a structured English report with two sections: 'Scene Description' and 'Detected Objects'. The DAG executed three nodes: node_1 performed image classification (output: label 'normal' with score 0.9998), node_2 performed object detection (output: 5 objects with labels and bounding boxes), and node_3 was a text generation node intended to combine results but produced an empty content due to length limit. Therefore, the final result is manually assembled from node_1 and node_2 outputs to meet the user's format requirement.",
+        "e2e": true,
+        "is_satisfied": true,
+        "graph_error_type": "none"
+      },
+      "ts": "2026-05-11T03:18:55.203420+00:00"
+    }
+  ],
+  "usage": {
+    "schema_version": 4,
+    "updated_at": "2026-05-11T03:18:55.203420+00:00",
+    "totals": {
+      "wall_sec": 95.1193,
+      "llm": {
+        "calls": 10,
+        "prompt_tokens": 22443,
+        "completion_tokens": 4563,
+        "total_tokens": 27006
+      }
+    },
+    "pass_counters": {
+      "module1": 1,
+      "module2": 1,
+      "module3": 1
+    },
+    "modules": {
+      "module1": {
+        "wall_sec": 6.4187,
+        "llm": {
+          "calls": 1,
+          "prompt_tokens": 1493,
+          "completion_tokens": 316,
+          "total_tokens": 1809
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 6.4187,
+            "llm": {
+              "calls": 1,
+              "prompt_tokens": 1493,
+              "completion_tokens": 316,
+              "total_tokens": 1809
+            }
+          }
+        ]
+      },
+      "module2": {
+        "wall_sec": 35.28,
+        "llm": {
+          "calls": 3,
+          "prompt_tokens": 9866,
+          "completion_tokens": 3212,
+          "total_tokens": 13078
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 35.28,
+            "llm": {
+              "calls": 3,
+              "prompt_tokens": 9866,
+              "completion_tokens": 3212,
+              "total_tokens": 13078
+            }
+          }
+        ]
+      },
+      "module3": {
+        "wall_sec": 46.7168,
+        "llm": {
+          "calls": 5,
+          "prompt_tokens": 8452,
+          "completion_tokens": 716,
+          "total_tokens": 9168
+        },
+        "passes": [
+          {
+            "pass": 0,
+            "trigger": "initial",
+            "wall_sec": 46.7168,
+            "llm": {
+              "calls": 5,
+              "prompt_tokens": 8452,
+              "completion_tokens": 716,
+              "total_tokens": 9168
+            },
+            "execute_only_nodes": null,
+            "nodes": {
+              "node_2": {
+                "wall_sec": 20.6525,
+                "infer_attempts": 2,
+                "llm": {
+                  "calls": 2,
+                  "prompt_tokens": 2900,
+                  "completion_tokens": 182,
+                  "total_tokens": 3082
+                }
+              },
+              "node_1": {
+                "wall_sec": 11.9368,
+                "infer_attempts": 2,
+                "llm": {
+                  "calls": 2,
+                  "prompt_tokens": 3027,
+                  "completion_tokens": 179,
+                  "total_tokens": 3206
+                }
+              },
+              "node_3": {
+                "wall_sec": 26.0424,
+                "infer_attempts": 1,
+                "llm": {
+                  "calls": 1,
+                  "prompt_tokens": 2525,
+                  "completion_tokens": 355,
+                  "total_tokens": 2880
+                }
+              }
+            }
+          }
+        ]
+      },
+      "module5": {
+        "wall_sec": 6.7022,
+        "llm": {
+          "calls": 1,
+          "prompt_tokens": 2632,
+          "completion_tokens": 319,
+          "total_tokens": 2951
+        },
+        "rounds": [
+          {
+            "round": 0,
+            "wall_sec": 6.7022,
+            "llm": {
+              "calls": 1,
+              "prompt_tokens": 2632,
+              "completion_tokens": 319,
+              "total_tokens": 2951
+            },
+            "graph_eval": {
+              "is_satisfied": true,
+              "graph_error_type": "none"
+            }
+          }
+        ]
+      }
+    },
+    "llm_events": [
+      {
+        "seq": 0,
+        "ts": "2026-05-11T03:17:26.499307+00:00",
+        "module": "module1",
+        "purpose": "dag_plan",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 6.417,
+        "prompt_tokens": 1493,
+        "completion_tokens": 316,
+        "total_tokens": 1809,
+        "node_id": null,
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 1,
+        "ts": "2026-05-11T03:17:32.063762+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 2.6302,
+        "prompt_tokens": 792,
+        "completion_tokens": 114,
+        "total_tokens": 906,
+        "node_id": "node_2",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 2,
+        "ts": "2026-05-11T03:17:56.175425+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 24.356,
+        "prompt_tokens": 3965,
+        "completion_tokens": 1385,
+        "total_tokens": 5350,
+        "node_id": "node_1",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 3,
+        "ts": "2026-05-11T03:18:01.781041+00:00",
+        "module": "module2",
+        "purpose": "align_sem",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 29.616,
+        "prompt_tokens": 5109,
+        "completion_tokens": 1713,
+        "total_tokens": 6822,
+        "node_id": "node_3",
+        "module1_pass": 0,
+        "module3_pass": null,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 4,
+        "ts": "2026-05-11T03:18:03.819855+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 2.0167,
+        "prompt_tokens": 1360,
+        "completion_tokens": 77,
+        "total_tokens": 1437,
+        "node_id": "node_2",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 5,
+        "ts": "2026-05-11T03:18:03.911327+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 2.1095,
+        "prompt_tokens": 1420,
+        "completion_tokens": 80,
+        "total_tokens": 1500,
+        "node_id": "node_1",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 6,
+        "ts": "2026-05-11T03:18:10.932332+00:00",
+        "module": "module3",
+        "purpose": "binder_repair",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 2.1228,
+        "prompt_tokens": 1607,
+        "completion_tokens": 99,
+        "total_tokens": 1706,
+        "node_id": "node_1",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 7,
+        "ts": "2026-05-11T03:18:17.891482+00:00",
+        "module": "module3",
+        "purpose": "binder_repair",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 2.7345,
+        "prompt_tokens": 1540,
+        "completion_tokens": 105,
+        "total_tokens": 1645,
+        "node_id": "node_2",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 8,
+        "ts": "2026-05-11T03:18:28.987558+00:00",
+        "module": "module3",
+        "purpose": "binder",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 6.5306,
+        "prompt_tokens": 2525,
+        "completion_tokens": 355,
+        "total_tokens": 2880,
+        "node_id": "node_3",
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": null,
+        "trigger": "initial"
+      },
+      {
+        "seq": 9,
+        "ts": "2026-05-11T03:18:55.203420+00:00",
+        "module": "module5",
+        "purpose": "graph_delivery",
+        "model": "deepseek/deepseek-v4-flash",
+        "latency_sec": 6.7013,
+        "prompt_tokens": 2632,
+        "completion_tokens": 319,
+        "total_tokens": 2951,
+        "node_id": null,
+        "module1_pass": 0,
+        "module3_pass": 0,
+        "module5_round": 0,
+        "trigger": null
+      }
+    ],
+    "_next_seq": 10,
+    "_e2e_perf_t0": 2376458.8267514
+  }
+}
