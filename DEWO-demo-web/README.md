@@ -1,35 +1,39 @@
-# DEWO 演示 Web（交互式）
+# DEWO 演示 Web（前后端分离）
 
-用于在浏览器中**流式展示** `DEWO-code/run.py` 的终端输出（模块 1→5、Binder 修参、HF 推理与 `final_result`），与你在 CLI 中看到的体验一致。
+在浏览器中以**类 LLM 对话**形式提交任务：用户与助手均以**气泡**展示；一次执行中，**主流程进度、DAG 工作流、用时与 Token** 均在**同一条助手气泡**内实时更新，最终回复也在该气泡底部展示。
 
-## 前置条件
+## 目录
 
-- 已按主仓库说明配置 **`DEWO-code`** 依赖、**控制器 LLM**（`app/configs.py`）与 **`HF_TOKEN`**。
-- 仓库目录保持 **`DEWO-code/`** 与 **`DEWO-Set/`** 与主 `README` 一致（本服务从仓库根解析路径）。
+| 路径 | 说明 |
+|------|------|
+| [demo-dewo-code/](demo-dewo-code/) | 演示用 DEWO 代码副本（与 CLI `run.py` 同源逻辑） |
+| [backend/](backend/) | FastAPI + SSE |
+| [frontend/](frontend/) | Vite + React 浅色界面 |
 
-## 安装与启动
+## 快速启动
 
-在 **`DEWO-demo-web`** 目录下（可与 `DEWO-code` 使用同一 Python 环境，或单独 venv）：
+1. 配置环境变量（与 `demo-dewo-code/app/configs.py` 一致）：控制器 API Key、`HF_TOKEN` 等。
 
-```bash
-cd DEWO-demo-web
-pip install -r requirements.txt
-python -m uvicorn server.main:app --host 127.0.0.1 --port 8765
+2. 启动后端（端口 **8765**）：
+
+```powershell
+cd D:\Project\YTY\DEWO-TEST\DEWO-demo-web
+pip install -r backend/requirements.txt
+python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8765
 ```
 
-浏览器打开：**http://127.0.0.1:8765/**
+3. 启动前端（端口 **5173**）：
 
-- 选择 **`demo_data.jsonl`** 中的示例卡片，点击 **运行示例**。
-- 右侧 **最终结果** 会尝试从日志中解析 `final_result:` 与下一段分隔线之间的文本。
+```powershell
+cd D:\Project\YTY\DEWO-TEST\DEWO-demo-web\frontend
+npm install
+npm run dev
+```
 
-## API（本地）
+浏览器访问前端地址即可。
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | `/api/health` | 检查 `run.py` 与 `demo_data.jsonl` 是否存在 |
-| GET | `/api/presets` | 返回 `demo_data.jsonl` 每行摘要 |
-| GET | `/api/run/stream?preset=1&max_samples=1` | SSE：流式输出子进程 stdout（`preset` 为 JSONL 行号，1-based） |
+示例卡片数据来自 **`../DEWO-Set/demo_data.jsonl` 前两条**（`req_graph_000011` 音频+笔记对齐、`req_graph_000021` 图像描述+检测）；请确保 **`DEWO-Set/assets`** 下存在 `graph_011_audio_1.wav`、`graph_021_image_1.png` 等资源。
 
 ## 安全说明
 
-本演示在本地启动子进程执行 **真实** `run.py`，会消耗 LLM 与 HF 推理额度。**勿将 `0.0.0.0` 暴露到公网**。若需对外演示，请加反向代理、鉴权与限流。
+本演示会调用真实 LLM 与 Hugging Face 推理。**不要**将后端 `0.0.0.0` 暴露到公网。

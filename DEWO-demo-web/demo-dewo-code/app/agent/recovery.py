@@ -17,7 +17,6 @@ from __future__ import annotations
 
 import operator
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
-import json
 from time import perf_counter, sleep
 from typing import Annotated, Any, Callable, Dict, List, Optional, TypedDict
 
@@ -30,25 +29,6 @@ def _merge_dict(a: Optional[Dict[str, Any]], b: Optional[Dict[str, Any]]) -> Dic
     out = dict(a or {})
     out.update(b or {})
     return out
-
-
-_SENSITIVE_KEYS = {"hf_token", "token", "api_key", "authorization", "auth", "key"}
-
-
-def _redact_infer_call_for_print(x: Any) -> Any:
-    """用于终端打印的轻量脱敏（避免把 token/key 打到日志里）。"""
-    if isinstance(x, dict):
-        out: Dict[str, Any] = {}
-        for k, v in x.items():
-            ks = str(k).lower()
-            if ks in _SENSITIVE_KEYS:
-                out[k] = "***redacted***"
-            else:
-                out[k] = _redact_infer_call_for_print(v)
-        return out
-    if isinstance(x, list):
-        return [_redact_infer_call_for_print(v) for v in x]
-    return x
 
 
 class NodeRecoveryState(TypedDict, total=False):
@@ -266,18 +246,6 @@ def run_node_recovery(
         print(
             f"[模块3] 结点 {st.get('node_id')} 的 {st.get('task_type')} 任务开始执行，model_id={current_model}"
         )
-        # 每轮 infer 调用前：打印真实 args（带换行，便于直接复制复现）
-        try:
-            printable = _redact_infer_call_for_print(infer_call)
-            print(
-                "================================================================\n"
-                "[模块4] infer 实参如下:\n"
-                + json.dumps(printable, ensure_ascii=False, indent=2)
-                + "\n================================================================"
-            )
-        except Exception:
-            # 打印失败不应影响执行
-            print(f"[模块4] infer 实参打印失败，infer_call={infer_call!r}")
         ex = ThreadPoolExecutor(max_workers=1, thread_name_prefix="dewo_infer")
         try:
             fut = ex.submit(lambda ic=dict(infer_call): infer(**ic))

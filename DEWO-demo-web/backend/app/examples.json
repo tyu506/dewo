@@ -1,0 +1,27 @@
+[
+  {
+    "id": "text_translate",
+    "title": "中英翻译",
+    "description": "纯文本，无上传文件",
+    "query": "请将用户输入翻译成英文，只输出译文。",
+    "inputs": {
+      "text": "人工智能正在改变软件开发的方式。"
+    }
+  },
+  {
+    "id": "text_summarize",
+    "title": "要点摘要",
+    "description": "对给定文本生成三条要点",
+    "query": "请阅读 inputs.text，用中文列出三条要点，每条一行。",
+    "inputs": {
+      "text": "LangGraph 可以把多个 LLM 调用与工具编排成有向图；DEWO 在此基础上为每个节点绑定 Hugging Face 推理模型并执行 infer。"
+    }
+  },
+  {
+    "id": "placeholder_multimodal",
+    "title": "多模态（需自备资源）",
+    "description": "示例指令；若有本地图片请在下方上传后修改 query",
+    "query": "（请上传图片后）描述这张图片的主要内容。",
+    "inputs": {}
+  }
+]

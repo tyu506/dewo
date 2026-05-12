@@ -21,6 +21,20 @@ from typing import Annotated, Any, Callable, Dict, List, Optional, TypedDict
 
 from app import configs
 from app.agent.recovery import run_node_recovery
+from app.demo_streaming import maybe_emit_dag_progress
+
+
+def _emit_runtime_node_progress(*, node_id: str, node_output: Any, success: bool) -> None:
+    """节点 _fn 即将返回时立即推送，避免依赖 LangGraph stream 的 yield 节拍导致「同批一起变绿」。"""
+    maybe_emit_dag_progress(
+        {
+            "event": "dag_node",
+            "node_id": str(node_id),
+            "has_output": node_output is not None,
+            "success": bool(success),
+            "node_output": node_output,
+        }
+    )
 from app.state import OverallState
 from app.utils.controller_retry import controller_retry_budget, invoke_litellm_with_retries
 from app.utils.json_safe import dumps_llm_context
@@ -627,6 +641,7 @@ def _build_runtime_node_fn(
             if not candidate_models:
                 err = f"节点 {node_id} 未找到绑定模型"
                 infer_attempts = 1
+                _emit_runtime_node_progress(node_id=node_id, node_output={"error": err}, success=False)
                 return {
                     "node_outputs": {node_id: {"error": err}},
                     "execution_trace": [
@@ -806,7 +821,9 @@ def _build_runtime_node_fn(
             if recovery_out.get("success"):
                 if len(trace_steps) > 1:
                     print(f"[模块4] 结点 {node_id} 经节点内修复后推理成功（共 {len(trace_steps)} 步尝试）")
-                return {"node_outputs": {node_id: recovery_out.get("result")}, "execution_trace": trace_steps}
+                _res = recovery_out.get("result")
+                _emit_runtime_node_progress(node_id=node_id, node_output=_res, success=True)
+                return {"node_outputs": {node_id: _res}, "execution_trace": trace_steps}
 
             err = str(recovery_out.get("error") or "节点推理失败")
             print(f"[模块4] 结点 {node_id} 推理失败（节点内修复已用尽）：{err}")
@@ -827,6 +844,7 @@ def _build_runtime_node_fn(
                     }
                 ]
             infer_attempts = len(trace_steps)
+            _emit_runtime_node_progress(node_id=node_id, node_output={"error": err}, success=False)
             return {"node_outputs": {node_id: {"error": err}}, "execution_trace": trace_steps}
         finally:
             if usage_state is not None:
@@ -964,24 +982,39 @@ def _execute_with_binder_inner(state: OverallState) -> OverallState:
     #    与 run.py 写入的 infer_assets_dir 对齐（单样本内临时覆盖，结束后恢复）。
     infer_assets = state.get("infer_assets_dir")
     old_tool_assets: Optional[str] = None
+    old_session_input_dir: Optional[str] = None
     if infer_assets:
         old_tool_assets = os.environ.get("TOOL_ASSETS_DIR")
         os.environ["TOOL_ASSETS_DIR"] = str(Path(infer_assets).resolve())
+        # 供 infer 后可视化（检测/分割叠加）解析上传图像：与 infer_assets 同级的 session 目录
+        old_session_input_dir = os.environ.get("DEWO_INPUT_SEARCH_ROOT")
+        os.environ["DEWO_INPUT_SEARCH_ROOT"] = str(Path(infer_assets).resolve().parent)
     seed_node_outputs = (
         state.get("module5_seed_node_outputs")
         if isinstance(state.get("module5_seed_node_outputs"), dict)
         else {}
     )
     try:
-        runtime = sub.compile().invoke(
-            {"node_outputs": dict(seed_node_outputs), "execution_trace": []}
-        )
+        compiled_sub = sub.compile()
+        init_rt: Dict[str, Any] = {
+            "node_outputs": dict(seed_node_outputs),
+            "execution_trace": [],
+        }
+        runtime: Dict[str, Any] = dict(init_rt)
+        for chunk in compiled_sub.stream(init_rt, stream_mode="values"):
+            if isinstance(chunk, dict):
+                runtime = chunk
+                # 节点级 SSE 由各节点 _fn 在返回前 _emit_runtime_node_progress 推送，避免等 stream 聚合后才变绿
     finally:
         if infer_assets:
             if old_tool_assets is None:
                 os.environ.pop("TOOL_ASSETS_DIR", None)
             else:
                 os.environ["TOOL_ASSETS_DIR"] = old_tool_assets
+            if old_session_input_dir is None:
+                os.environ.pop("DEWO_INPUT_SEARCH_ROOT", None)
+            else:
+                os.environ["DEWO_INPUT_SEARCH_ROOT"] = old_session_input_dir
 
     state["node_outputs"] = runtime.get("node_outputs") or {}
     if execute_only_set:

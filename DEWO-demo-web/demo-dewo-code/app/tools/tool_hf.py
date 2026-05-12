@@ -36,6 +36,8 @@ from typing import Any, Dict, List, Optional, Union
 
 from smolagents import tool
 
+from app.utils.output_viz import prepare_infer_result_for_ui
+
 from .hf_clients import ModelInferenceClient, TASK_TO_PIPELINE, TASK_CONFIGS
 
 # 说明：为了兼容部分 provider（如 DeepSeek）的 function calling JSON schema 校验，
@@ -1295,8 +1297,14 @@ def infer(
         if cfg is not None:
             output_type_hint = cfg.output_type
 
-        # 媒体结果落盘（保证可序列化）
-        safe_result = _maybe_save_media(result, output_type_hint)
+        # 媒体结果落盘 + 分割 mask / 检测·分割可视化叠加（保证可序列化）
+        safe_result = prepare_infer_result_for_ui(
+            task_type=task_type,
+            inputs=inputs,
+            raw_result=result,
+            output_type_hint=output_type_hint,
+            maybe_save_media_fn=_maybe_save_media,
+        )
 
         dt_ms = (time.time() - t0) * 1000
         _stat_ok("infer", dt_ms)

@@ -13,10 +13,23 @@ from pathlib import Path
 # - False：跳过 model_card 与 LLM BindingPlan，直接从 candidate_frontier 的 Top-K 构造 binding_plan
 module2_use_model_card_for_binding: bool = False
 
-# 输入多模态资源的基础目录：
-input_assets_base_dir: str = str(
-    (Path(__file__).resolve().parent.parent.parent / "DEWO-Set" / "assets").resolve()
-)
+# 输入多模态资源的基础目录（与 DEWO-Set/demo_data.jsonl 中相对路径一致）：
+# 优先仓库根 DEWO-TEST/DEWO-Set/assets，其次 DEWO-demo-web/DEWO-Set/assets。
+_cfg_dir = Path(__file__).resolve().parent
+_demo_code_root = _cfg_dir.parent
+_demo_web_root = _demo_code_root.parent
+_repo_root = _demo_web_root.parent
+_ASSET_CANDIDATES = [
+    _repo_root / "DEWO-Set" / "assets",
+    _demo_web_root / "DEWO-Set" / "assets",
+]
+_input_assets = next((p for p in _ASSET_CANDIDATES if p.is_dir()), _ASSET_CANDIDATES[0])
+input_assets_base_dir: str = str(_input_assets.resolve())
+
+# 演示示例专用资源目录（与 jsonl 中 `graph_011_audio_1.wav` 等扁平文件名对应；不依赖 DEWO-Set/assets）：
+# `demo-dewo-code/app/assets/demo_assets/`
+_demo_packaged_assets = _cfg_dir / "assets" / "demo_assets"
+demo_assets_dir: str = str(_demo_packaged_assets.resolve())
 
 # 控制器配置
 controller = {
@@ -29,9 +42,14 @@ controller = {
         },
         # 控制器LLM - 演示配置
         # LiteLLM 用「provider/模型」解析：须为 deepseek/...（官方 DeepSeek API），勿写 HF 组织名 deepseek-ai/...
-        "model_id": "deepseek/deepseek-v4-flash",
-        "api_base": "https://api.deepseek.com",
-        "api_key_env": "DEEPSEEK_API_KEY",
+        # "model_id": "deepseek/deepseek-v4-flash",
+        # "api_base": "https://api.deepseek.com",
+        # "api_key_env": "DEEPSEEK_API_KEY",
+
+        "model_id": "dashscope/deepseek-v4-pro",
+        "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "api_key_env": "DASHSCOPE_API_KEY",
+        
         
         # 以下为控制器LLM - 实验配置
         # "model_id": "dashscope/qwen3.5-plus",

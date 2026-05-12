@@ -159,6 +159,50 @@ def _relocate_inputs_paths(obj: Any, *, base_dir: Path, parent_key: str = "") ->
     return obj
 
 
+def _resolve_packaged_demo_assets(obj: Any, *, demo_dir: Path, parent_key: str = "") -> Any:
+    """
+    在常规 input_assets_base_dir 解析之后：对仍为「示例型」相对路径、或指向不存在文件的叶子，
+    在 app/assets/demo_assets 下按文件名（basename）查找并替换为绝对路径。
+    用于 Web 仅设会话目录、或本机未检出 DEWO-Set/assets 时仍能跑通 jsonl 前两条示例。
+    """
+    if not str(demo_dir) or not demo_dir.is_dir():
+        return obj
+    if isinstance(obj, dict):
+        return {
+            k: _resolve_packaged_demo_assets(v, demo_dir=demo_dir, parent_key=str(k))
+            for k, v in obj.items()
+        }
+    if isinstance(obj, list):
+        return [_resolve_packaged_demo_assets(v, demo_dir=demo_dir, parent_key=parent_key) for v in obj]
+    if not isinstance(obj, str) or not _looks_like_local_path(obj, parent_key=parent_key):
+        return obj
+    s = str(obj).strip()
+    if not s:
+        return obj
+    p = Path(s)
+    try:
+        rp = p.expanduser().resolve()
+        if rp.is_file():
+            return str(rp)
+    except (OSError, ValueError):
+        rp = None
+    # 扁平文件名：demo_assets / graph_011_audio_1.wav
+    name = p.name
+    if name and name not in (".", ".."):
+        cand = (demo_dir / name).resolve()
+        if cand.is_file():
+            return str(cand)
+    # 相对路径含子目录时：demo_assets / relpath
+    if not p.is_absolute():
+        try:
+            cand2 = (demo_dir / s).resolve()
+            if cand2.is_file() and str(cand2).startswith(str(demo_dir.resolve())):
+                return str(cand2)
+        except (OSError, ValueError):
+            pass
+    return obj
+
+
 def _build_inputs_meta(obj: Any, *, parent_key: str = "") -> Any:
     """
     与 inputs 同形：对每个叶子字符串，若是存在的本地文件则调用 get_file_info。
@@ -227,6 +271,68 @@ def _run_dewo_graph_streaming(
         err = e
         tb_text = traceback.format_exc()
     return accumulated, err, tb_text
+
+
+def ensure_dewo_sys_path() -> Path:
+    """将 demo-dewo-code 根与上一级目录加入 sys.path（与 CLI 入口一致）。"""
+    dewo_code_root = Path(__file__).resolve().parent
+    project_root = dewo_code_root.parent
+    for p in (str(dewo_code_root), str(project_root)):
+        if p not in sys.path:
+            sys.path.insert(0, p)
+    return dewo_code_root
+
+
+def prepare_inputs_and_meta(
+    raw_inputs: Dict[str, Any],
+    *,
+    assets_base_dir: Optional[Path] = None,
+) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+    """将 inputs 相对路径重定位到 assets_base_dir，并构建 inputs_meta（与 CLI 单条样本一致）。"""
+    base = assets_base_dir
+    if base is None:
+        base = Path(str(getattr(configs, "input_assets_base_dir", "") or "")).expanduser()
+    base_path = base if isinstance(base, Path) else Path(str(base))
+    norm = (
+        _relocate_inputs_paths(raw_inputs, base_dir=base_path)
+        if str(base_path)
+        else raw_inputs
+    )
+    demo_dir = Path(str(getattr(configs, "demo_assets_dir", "") or "")).expanduser()
+    norm = _resolve_packaged_demo_assets(norm, demo_dir=demo_dir)
+    meta = _build_inputs_meta(norm)
+    return norm, meta
+
+
+def build_initial_state(
+    *,
+    run_id: str,
+    sample_id: str,
+    query: str,
+    inputs: Dict[str, Any],
+    inputs_meta: Dict[str, Any],
+    infer_assets_dir: str,
+    datasets_meta: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    """构造进入主图的初始 OverallState（不含执行结果字段）。"""
+    return {
+        "run_id": run_id,
+        "sample_id": sample_id,
+        "query": query,
+        "inputs": inputs,
+        "inputs_meta": inputs_meta,
+        "infer_assets_dir": infer_assets_dir,
+        "datasets_meta": dict(datasets_meta or {}),
+    }
+
+
+def iter_main_graph_state(runnable: Any, state_in: Dict[str, Any]) -> Any:
+    """流式产出：每完成一个主图节点后 yield 当前累积 state（stream_mode=values）。"""
+    accumulated: Dict[str, Any] = dict(state_in)
+    for chunk in runnable.stream(state_in, stream_mode="values"):
+        if isinstance(chunk, dict):
+            accumulated = chunk
+            yield accumulated
 
 
 def _print_task_start_banner(

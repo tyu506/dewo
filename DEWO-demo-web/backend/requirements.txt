@@ -1,0 +1,5 @@
+# DEWO-demo-web backend — run from repo root: DEWO-demo-web
+# pip install -r backend/requirements.txt
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.17
